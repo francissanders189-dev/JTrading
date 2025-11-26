@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红利低波ETF (512890) RSI 监控 - GitHub Pages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --success-color: #2ecc71;
+            --warning-color: #e74c3c;
+            --neutral-color: #34495e;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-secondary: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .rsi-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .rsi-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .rsi-value {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .rsi-status {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .status-buy { color: var(--success-color); background: rgba(46, 204, 113, 0.1); }
+        .status-sell { color: var(--warning-color); background: rgba(231, 76, 60, 0.1); }
+        .status-neutral { color: var(--neutral-color); background: rgba(52, 73, 94, 0.1); }
+
+        .price-info {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .price-value {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .meter-container {
+            height: 12px;
+            background: #ecf0f1;
+            border-radius: 6px;
+            position: relative;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .meter-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-color) 0%, var(--neutral-color) 50%, var(--warning-color) 100%);
+            width: 100%;
+            opacity: 0.3;
+        }
+
+        .meter-indicator {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #000;
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+        }
+
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: -25px;
+        }
+
+        .update-time {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #bdc3c7;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #bdc3c7;
+        }
+        
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>红利低波ETF (512890)</h1>
+            <div class="subtitle">RSI 趋势监控面板 (GitHub Pages 版)</div>
+        </header>
+
+        <div class="card" id="main-card">
+            <div class="rsi-display">
+                <div class="rsi-label">RSI (14天)</div>
+                <div class="rsi-value" id="rsi-value">--</div>
+                <div class="rsi-status" id="rsi-status">正在加载...</div>
+            </div>
+
+            <div class="price-info">
+                当前价格: <span class="price-value" id="price-value">--</span>
+            </div>
+
+            <div class="meter-container">
+                <div class="meter-bar"></div>
+                <div class="meter-indicator" id="meter-indicator" style="left: 50%;"></div>
+            </div>
+            <div class="meter-labels">
+                <span>0 (超卖)</span>
+                <span>50</span>
+                <span>100 (超买)</span>
+            </div>
+        </div>
+
+        <div class="update-time" id="update-time">
+            上次更新: --
+        </div>
+
+        <div class="footer">
+            数据来源: Investing.com | <a href="https://github.com/Pear56/JTrading" target="_blank">GitHub 项目地址</a>
+            <br>
+            注意: 本页面为静态快照，更新频率取决于 GitHub Actions 运行间隔。
+        </div>
+    </div>
+
+    <script>
+        function updateUI(data) {
+            const rsiValueEl = document.getElementById('rsi-value');
+            const rsiStatusEl = document.getElementById('rsi-status');
+            const priceValueEl = document.getElementById('price-value');
+            const updateTimeEl = document.getElementById('update-time');
+            const meterIndicator = document.getElementById('meter-indicator');
+            const mainCard = document.getElementById('main-card');
+
+            mainCard.classList.remove('loading');
+
+            if (!data || data.rsi === null || data.rsi === "找不到") {
+                rsiValueEl.textContent = "N/A";
+                rsiStatusEl.textContent = "数据不可用";
+                rsiStatusEl.className = "rsi-status status-neutral";
+                return;
+            }
+
+            const rsi = parseFloat(data.rsi);
+            rsiValueEl.textContent = rsi.toFixed(2);
+
+            // Update Price
+            if (data.price) {
+                priceValueEl.textContent = "¥" + data.price.toFixed(3);
+            } else {
+                priceValueEl.textContent = "--";
+            }
+
+            // Update Status
+            if (rsi < 40) {
+                rsiStatusEl.textContent = "建议买入 (超卖)";
+                rsiStatusEl.className = "rsi-status status-buy";
+            } else if (rsi > 70) {
+                rsiStatusEl.textContent = "建议卖出 (超买)";
+                rsiStatusEl.className = "rsi-status status-sell";
+            } else {
+                rsiStatusEl.textContent = "观望 (中性)";
+                rsiStatusEl.className = "rsi-status status-neutral";
+            }
+
+            // Update Meter
+            // Clamp between 0 and 100
+            const clampedRsi = Math.max(0, Math.min(100, rsi));
+            meterIndicator.style.left = `${clampedRsi}%`;
+
+            // Update Time
+            updateTimeEl.textContent = "上次更新: " + (data.timestamp || "未知");
+        }
+
+        async function fetchData() {
+            try {
+                // Fetch from local JSON file generated by GitHub Action
+                const response = await fetch('data.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                updateUI(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('rsi-status').textContent = "加载失败";
+            }
+        }
+
+        // Initial load
+        fetchData();
+    </script>
+</body>
+</html>

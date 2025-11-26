@@ -1,0 +1,4 @@
+flask
+apscheduler
+beautifulsoup4
+requests
