@@ -367,21 +367,34 @@
             let timeStr = data.timestamp || "未知";
             // 尝试计算相对时间
             try {
-                // 移除 "(GitHub Actions)" 后缀并解析
-                const cleanTime = timeStr.replace(" (GitHub Actions)", "").replace(/-/g, "/");
-                const updateDate = new Date(cleanTime);
+                // 1. 移除后缀
+                let cleanTime = timeStr.replace(" (GitHub Actions)", "").trim();
+                
+                // 2. 构造 ISO 8601 格式并显式指定为北京时间 (+08:00)
+                // 将 "2025-11-26 15:30:00" 转换为 "2025-11-26T15:30:00+08:00"
+                const isoTime = cleanTime.replace(" ", "T") + "+08:00";
+                
+                const updateDate = new Date(isoTime);
                 const now = new Date();
+                
+                // 3. 计算时间差 (毫秒)
                 const diffMs = now - updateDate;
                 const diffMins = Math.floor(diffMs / 60000);
                 
                 if (!isNaN(diffMins)) {
                     let relativeTime = "";
-                    if (diffMins < 1) relativeTime = "刚刚";
-                    else if (diffMins < 60) relativeTime = `${diffMins} 分钟前`;
-                    else {
+                    // 处理时间差
+                    if (diffMins < 1) {
+                        relativeTime = "刚刚";
+                    } else if (diffMins < 60) {
+                        relativeTime = `${diffMins} 分钟前`;
+                    } else {
                         const diffHours = Math.floor(diffMins / 60);
-                        if (diffHours < 24) relativeTime = `${diffHours} 小时前`;
-                        else relativeTime = `${Math.floor(diffHours / 24)} 天前`;
+                        if (diffHours < 24) {
+                            relativeTime = `${diffHours} 小时前`;
+                        } else {
+                            relativeTime = `${Math.floor(diffHours / 24)} 天前`;
+                        }
                     }
                     timeStr += ` (${relativeTime})`;
                 }
