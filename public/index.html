@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>红利低波ETF (512890) RSI 监控 - GitHub Pages</title>
+    <title>红利低波ETF (512890) RSI 监控</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -51,38 +51,52 @@
 
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 1000px;
+            padding: 0 15px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-color);
+        /* 布局容器 */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
         }
 
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        @media (min-width: 850px) {
+            .dashboard-layout {
+                grid-template-columns: 1.4fr 1fr;
+                align-items: start;
+            }
         }
 
-        .card {
+        /* 通用卡片样式 */
+        .dashboard-card {
             background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px var(--shadow-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
             padding: 30px;
-            margin-bottom: 20px;
             transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .side-card {
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .side-card:last-child {
+            margin-bottom: 0;
         }
 
         .rsi-display {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .rsi-label {
@@ -216,42 +230,42 @@
         }
         
         .info-section {
-            margin-top: 20px;
-            background: var(--info-bg);
-            border-radius: 12px;
-            padding: 15px 20px;
+            /* 移除旧的背景和边框，融入卡片 */
             font-size: 0.9rem;
             color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .subscribe-hint {
-            margin-top: 15px;
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            background: rgba(52, 152, 219, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px dashed var(--primary-color);
+        }
+        
+        .subscribe-title {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .subscribe-form {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column; /* 侧边栏宽度有限，改为垂直排列更稳妥 */
+            gap: 12px;
+            margin-top: 15px;
         }
 
         .subscribe-input {
-            padding: 10px 15px;
+            padding: 12px 15px;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 8px;
             font-family: inherit;
-            width: 220px;
-            background: var(--card-bg);
+            width: 100%;
+            box-sizing: border-box;
+            background: var(--bg-color); /* 输入框背景微调 */
             color: var(--text-color);
             outline: none;
             transition: border-color 0.2s;
@@ -259,17 +273,19 @@
         
         .subscribe-input:focus {
             border-color: var(--primary-color);
+            background: var(--card-bg);
         }
 
         .subscribe-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: background-color 0.2s, transform 0.1s;
+            width: 100%;
         }
 
         .subscribe-btn:hover {
@@ -347,63 +363,79 @@
     <div class="container">
         <header>
             <h1>红利低波ETF (512890)</h1>
-            <div class="subtitle">RSI 趋势监控面板 (GitHub Pages 版)</div>
+            <div class="subtitle">RSI 趋势监控面板</div>
         </header>
 
-        <div class="card" id="main-card">
-            <div class="rsi-display">
-                <div class="rsi-label">RSI (14天)</div>
-                <div class="rsi-value" id="rsi-value">--</div>
-                <div class="rsi-status" id="rsi-status">正在加载...</div>
-            </div>
+        <div class="dashboard-layout">
+            <!-- 左侧：核心监控数据 -->
+            <main class="main-column">
+                <div class="dashboard-card" id="main-card">
+                    <div class="rsi-display">
+                        <div class="rsi-label">RSI (14天)</div>
+                        <div class="rsi-value" id="rsi-value">--</div>
+                        <div class="rsi-status" id="rsi-status">正在加载...</div>
+                    </div>
 
-            <div class="price-info">
-                当前价格: <span class="price-value" id="price-value">--</span>
-            </div>
+                    <div class="price-info">
+                        当前价格: <span class="price-value" id="price-value">--</span>
+                    </div>
 
-            <div class="meter-container">
-                <div class="meter-bar"></div>
-                <div class="meter-indicator" id="meter-indicator" style="left: 50%;"></div>
-            </div>
-            <div class="meter-labels">
-                <span>0 (超卖)</span>
-                <span>50</span>
-                <span>100 (超买)</span>
-            </div>
-            
-            <div class="action-buttons">
-                <a href="https://cn.investing.com/etfs/huatai-pinebridge-csi-div-low-vol-technical" target="_blank" class="btn btn-primary">
-                    📈 查看实时图表 (Investing.com)
-                </a>
-            </div>
-        </div>
+                    <div class="meter-container">
+                        <div class="meter-bar"></div>
+                        <div class="meter-indicator" id="meter-indicator" style="left: 50%;"></div>
+                    </div>
+                    <div class="meter-labels">
+                        <span>0 (超卖)</span>
+                        <span>50</span>
+                        <span>100 (超买)</span>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="https://cn.investing.com/etfs/huatai-pinebridge-csi-div-low-vol-technical" target="_blank" class="btn btn-primary">
+                            📈 查看实时图表 (Investing.com)
+                        </a>
+                    </div>
 
-        <div class="info-section">
-            <details>
-                <summary>💡 什么是 RSI 指标？</summary>
-                <p>相对强弱指数 (RSI) 是衡量价格变动速度和变化的动量指标，范围在 0 到 100 之间。</p>
-                <ul style="padding-left: 20px; margin-bottom: 0;">
-                    <li><strong style="color: var(--success-color)">RSI < 40 (超卖)</strong>: 市场可能过度下跌，存在反弹或买入机会。</li>
-                    <li><strong style="color: var(--warning-color)">RSI > 70 (超买)</strong>: 市场可能过度上涨，存在回调或卖出风险。</li>
-                    <li><strong>40 - 70 (中性)</strong>: 市场处于正常波动范围，建议观望。</li>
-                </ul>
-            </details>
-        </div>
+                    <div class="update-time" id="update-time">
+                        上次更新: --
+                    </div>
+                </div>
+            </main>
 
-        <div class="subscribe-hint">
-            <div style="margin-bottom: 10px;">🔔 订阅买卖点邮件提醒</div>
-            <form id="subscribe-form" action="https://formspree.io/f/xzzqlybo" method="POST" class="subscribe-form">
-                <input type="email" name="email" class="subscribe-input" placeholder="您的邮箱地址" required>
-                <button type="submit" class="subscribe-btn">订阅</button>
-            </form>
-            <div id="form-status" class="form-status"></div>
-            <div style="font-size: 0.75rem; margin-top: 8px; opacity: 0.8;">
-                提交后请留意作者审核，或直接联系 <a href="mailto:pear56@126.com">pear56@126.com</a>
-            </div>
-        </div>
+            <!-- 右侧：辅助信息与订阅 -->
+            <aside class="side-column">
+                <!-- RSI 说明卡片 -->
+                <div class="dashboard-card side-card">
+                    <div class="info-section">
+                        <details open>
+                            <summary>💡 什么是 RSI 指标？</summary>
+                            <p>相对强弱指数 (RSI) 是衡量价格变动速度和变化的动量指标，范围在 0 到 100 之间。</p>
+                            <ul style="padding-left: 20px; margin-bottom: 0;">
+                                <li><strong style="color: var(--success-color)">RSI < 40 (超卖)</strong>: 市场可能过度下跌，存在反弹或买入机会。</li>
+                                <li><strong style="color: var(--warning-color)">RSI > 70 (超买)</strong>: 市场可能过度上涨，存在回调或卖出风险。</li>
+                                <li><strong>40 - 70 (中性)</strong>: 市场处于正常波动范围，建议观望。</li>
+                            </ul>
+                        </details>
+                    </div>
+                </div>
 
-        <div class="update-time" id="update-time">
-            上次更新: --
+                <!-- 订阅卡片 -->
+                <div class="dashboard-card side-card">
+                    <div class="subscribe-hint">
+                        <div class="subscribe-title">
+                            <span>🔔</span> 订阅买卖点邮件提醒
+                        </div>
+                        <form id="subscribe-form" action="https://formspree.io/f/xzzqlybo" method="POST" class="subscribe-form">
+                            <input type="email" name="email" class="subscribe-input" placeholder="您的邮箱地址" required>
+                            <button type="submit" class="subscribe-btn">立即订阅</button>
+                        </form>
+                        <div id="form-status" class="form-status"></div>
+                        <div style="font-size: 0.75rem; margin-top: 15px; opacity: 0.7;">
+                            提交后请留意作者审核，或直接联系 <a href="mailto:pear56@126.com">pear56@126.com</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
 
         <div class="footer">
