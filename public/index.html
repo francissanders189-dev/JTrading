@@ -232,9 +232,41 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             background: rgba(52, 152, 219, 0.1);
-            padding: 10px;
+            padding: 20px;
             border-radius: 8px;
             border: 1px dashed var(--primary-color);
+        }
+
+        .subscribe-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .subscribe-input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            width: 200px;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .subscribe-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .subscribe-btn:hover {
+            background-color: #2980b9;
         }
 
         .subscribe-hint a {
@@ -325,7 +357,14 @@
         </div>
 
         <div class="subscribe-hint">
-            🔔 如需订阅买卖点邮件提醒，请联系作者：<a href="mailto:pear56@126.com">pear56@126.com</a>
+            <div style="margin-bottom: 10px;">🔔 订阅买卖点邮件提醒</div>
+            <form action="https://formspree.io/f/xzzqlybo" method="POST" class="subscribe-form" target="_blank">
+                <input type="email" name="email" class="subscribe-input" placeholder="您的邮箱地址" required>
+                <button type="submit" class="subscribe-btn">订阅</button>
+            </form>
+            <div style="font-size: 0.75rem; margin-top: 8px; opacity: 0.8;">
+                提交后请留意作者审核，或直接联系 <a href="mailto:pear56@126.com">pear56@126.com</a>
+            </div>
         </div>
 
         <div class="update-time" id="update-time">
