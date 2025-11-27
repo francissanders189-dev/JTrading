@@ -51,31 +51,27 @@ export default {
       }
 
       const currentContent = gistData.files[env.GIST_FILENAME]?.content || '';
-      const subscribers = currentContent.split('\n').map(line => line.trim().toLowerCase()).filter(Boolean);
+      // 提取所有邮箱（忽略 [pending] 和 [confirmed] 标记）
+      const allEmails = currentContent.split('\n')
+        .map(line => line.replace(/^\[(pending|confirmed)\]\s*/i, '').trim().toLowerCase())
+        .filter(Boolean);
 
       // 检查是否已订阅
-      if (subscribers.includes(email.toLowerCase())) {
+      if (allEmails.includes(email.toLowerCase())) {
         return jsonResponse({ 
           success: true, 
           message: '您已经订阅过了，无需重复订阅' 
         }, 200, env);
       }
 
-      // 追加新邮箱
-      const newContent = currentContent.trim() + '\n' + email;
+      // 追加新邮箱，标记为 [pending] 等待发送确认邮件
+      const newContent = currentContent.trim() + '\n[pending] ' + email;
       const updated = await updateGist(env, newContent);
 
       if (updated) {
-        // 发送确认邮件（异步，不阻塞响应）
-        if (env.RESEND_API_KEY) {
-          sendConfirmationEmail(env, email).catch(err => {
-            console.error('发送确认邮件失败:', err);
-          });
-        }
-        
         return jsonResponse({ 
           success: true, 
-          message: '订阅成功！确认邮件已发送到您的邮箱。' 
+          message: '订阅成功！确认邮件将在稍后发送到您的邮箱。' 
         }, 200, env);
       } else {
         return jsonResponse({ error: '订阅失败，请稍后重试' }, 500, env);

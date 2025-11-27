@@ -602,8 +602,8 @@
         }
 
         // Form Handling - 双重保险：Worker 优先，Formspree 备用
-        const WORKER_URL = els.form.dataset.action;
-        const FORMSPREE_URL = 'https://formspree.io/f/__FORMSPREE_ID__'; // 备用方案
+        const WORKER_URL = 'https://jtrading-subscribe.pear56.workers.dev/';
+        const FORMSPREE_URL = 'https://formspree.io/f/xzzqlybo'; // 备用方案
         
         async function submitToWorker(email) {
             const res = await fetch(WORKER_URL, {
