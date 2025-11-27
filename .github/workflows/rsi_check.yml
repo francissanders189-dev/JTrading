@@ -40,9 +40,10 @@ jobs:
         # SMTP_PORT: ${{ secrets.SMTP_PORT }}
       run: python github_action_runner.py
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        force_orphan: true
+    - name: Commit data.json to public folder
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add public/data.json
+        git diff --staged --quiet || git commit -m "Update RSI data [skip ci]"
+        git push
