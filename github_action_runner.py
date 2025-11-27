@@ -253,23 +253,36 @@ def main():
     # 动态注入订阅服务地址 (从环境变量)
     # ==========================================
     subscribe_worker_url = os.environ.get("SUBSCRIBE_WORKER_URL")
+    formspree_id = os.environ.get("FORMSPREE_ID")
     
-    if subscribe_worker_url:
-        index_path = os.path.join(docs_dir, "index.html")
-        if os.path.exists(index_path):
-            try:
-                with open(index_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                
-                if "__SUBSCRIBE_WORKER_URL__" in content:
-                    new_content = content.replace("__SUBSCRIBE_WORKER_URL__", subscribe_worker_url)
-                    with open(index_path, "w", encoding="utf-8") as f:
-                        f.write(new_content)
-                    print(f"已将 index.html 中的订阅服务地址更新为: {subscribe_worker_url}")
-                else:
-                    print("index.html 中未找到 __SUBSCRIBE_WORKER_URL__ 占位符，跳过替换。")
-            except Exception as e:
-                print(f"更新 index.html 失败: {e}")
+    index_path = os.path.join(docs_dir, "index.html")
+    if os.path.exists(index_path):
+        try:
+            with open(index_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            
+            updated = False
+            
+            # 注入 Worker URL
+            if subscribe_worker_url and "__SUBSCRIBE_WORKER_URL__" in content:
+                content = content.replace("__SUBSCRIBE_WORKER_URL__", subscribe_worker_url)
+                print(f"已注入 Worker URL: {subscribe_worker_url}")
+                updated = True
+            
+            # 注入 Formspree ID (备用方案)
+            if formspree_id and "__FORMSPREE_ID__" in content:
+                content = content.replace("__FORMSPREE_ID__", formspree_id)
+                print(f"已注入 Formspree ID: {formspree_id}")
+                updated = True
+            
+            if updated:
+                with open(index_path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                print("index.html 更新完成")
+            else:
+                print("index.html 中未找到需要替换的占位符，跳过。")
+        except Exception as e:
+            print(f"更新 index.html 失败: {e}")
 
 if __name__ == "__main__":
     main()

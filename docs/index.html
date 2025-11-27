@@ -601,41 +601,77 @@
             }
         }
 
-        // Form Handling
-        const SUBSCRIBE_URL = els.form.dataset.action;
+        // Form Handling - 双重保险：Worker 优先，Formspree 备用
+        const WORKER_URL = els.form.dataset.action;
+        const FORMSPREE_URL = 'https://formspree.io/f/__FORMSPREE_ID__'; // 备用方案
+        
+        async function submitToWorker(email) {
+            const res = await fetch(WORKER_URL, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json' 
+                },
+                body: JSON.stringify({ email })
+            });
+            const data = await res.json();
+            if (!res.ok || !data.success) {
+                throw new Error(data.error || data.message || 'Worker 提交失败');
+            }
+            return data.message || '订阅成功！';
+        }
+        
+        async function submitToFormspree(email) {
+            // 检查 Formspree 是否配置
+            if (FORMSPREE_URL.includes('__FORMSPREE_ID__')) {
+                throw new Error('备用服务未配置');
+            }
+            const res = await fetch(FORMSPREE_URL, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json' 
+                },
+                body: JSON.stringify({ email })
+            });
+            if (!res.ok) {
+                throw new Error('Formspree 提交失败');
+            }
+            return '订阅请求已收到，我们会尽快处理！';
+        }
         
         els.form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const btn = els.form.querySelector('button');
             const originalText = btn.textContent;
             const emailInput = els.form.querySelector('input[name="email"]');
+            const email = emailInput.value;
             
             btn.disabled = true;
             btn.textContent = "提交中...";
             
             try {
-                const res = await fetch(SUBSCRIBE_URL, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json' 
-                    },
-                    body: JSON.stringify({ email: emailInput.value })
-                });
-                
-                const data = await res.json();
-                
-                if (res.ok && data.success) {
-                    els.formStatus.textContent = "✅ " + (data.message || "订阅成功！");
-                    els.formStatus.className = "form-status success";
-                    els.form.reset();
+                let message;
+                // 优先尝试 Worker
+                if (WORKER_URL && !WORKER_URL.includes('__SUBSCRIBE_WORKER_URL__')) {
+                    try {
+                        message = await submitToWorker(email);
+                    } catch (workerErr) {
+                        console.warn('Worker 失败，尝试 Formspree:', workerErr);
+                        // Worker 失败，回退到 Formspree
+                        message = await submitToFormspree(email);
+                    }
                 } else {
-                    els.formStatus.textContent = "❌ " + (data.error || data.message || "提交失败");
-                    els.formStatus.className = "form-status error";
+                    // Worker 未配置，直接使用 Formspree
+                    message = await submitToFormspree(email);
                 }
+                
+                els.formStatus.textContent = "✅ " + message;
+                els.formStatus.className = "form-status success";
+                els.form.reset();
             } catch (err) {
                 console.error('Submission error:', err);
-                els.formStatus.textContent = "❌ 网络错误，请稍后重试";
+                els.formStatus.textContent = "❌ " + (err.message || "网络错误，请稍后重试");
                 els.formStatus.className = "form-status error";
             } finally {
                 btn.disabled = false;
