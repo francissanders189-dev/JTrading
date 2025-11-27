@@ -32,6 +32,7 @@
 - **自动确认邮件**: 新订阅者在 **1 分钟内** 收到精美的 HTML 确认邮件。
 - **私有 Gist 存储**: 订阅者邮箱安全存储在私有 Gist 中，支持 `#` 注释行。
 - **双重保险**: 前端支持 Cloudflare Worker + Formspree 双重备份，确保订阅服务稳定。
+- **配置安全**: 敏感 URL 通过 `config.js` 动态注入，源码不暴露隐私信息。
 
 ---
 
@@ -44,29 +45,49 @@ graph LR
     A["GitHub Actions<br/>(定时任务)"] -->|运行 Python 脚本| B("数据抓取 & 分析")
     B -->|生成| C{"RSI 信号判定"}
     C -->|触发阈值| D["发送通知<br/>(邮件/微信)"]
-    C -->|更新数据| E["生成 data.json"]
+    C -->|更新数据| E["生成 data.json<br/>+ config.js"]
     E -->|提交到 main 分支| F["GitHub Pages<br/>(静态托管)"]
     G[用户] -->|访问| F
     G -->|订阅| H["Cloudflare Worker"]
-    H -->|写入 pending 邮箱| I["私有 Gist<br/>(订阅者列表)"]
+    H -->|写入 [pending] 邮箱| I["私有 Gist<br/>(订阅者列表)"]
     I -.->|读取邮箱| D
-    J["GitHub Actions<br/>(每分钟检测)"] -->|检测 pending| I
+    J["GitHub Actions<br/>(每分钟检测)"] -->|检测 [pending]| I
     J -->|发送确认邮件| G
+    J -->|移除 [pending] 标记| I
 ```
+
+### 配置注入流程
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  GitHub 源码 (公开)                                          │
+│  └── docs/index.html  →  读取 CONFIG 对象（变量占位）         │
+├─────────────────────────────────────────────────────────────┤
+│  GitHub Actions 运行                                         │
+│  └── 从 Secrets 读取 → 生成 docs/config.js → 自动提交        │
+├─────────────────────────────────────────────────────────────┤
+│  GitHub Pages (线上)                                         │
+│  ├── index.html       →  加载 config.js                      │
+│  └── config.js        →  CONFIG = { WORKER_URL, FORMSPREE }  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
 
 ## 📂 项目结构
 
 ```text
 trading_rsi_app/
 ├── .github/workflows/
-│   ├── rsi_check.yml           # RSI 监控调度 (Cron: 0 1-7 * * *)
+│   ├── rsi_check.yml           # RSI 监控 + 生成 config.js (Cron: 0 1-7 * * *)
 │   └── send_confirmation.yml   # 确认邮件发送 (Cron: 每分钟)
 ├── cloudflare-worker/
 │   ├── worker.js               # Cloudflare Worker 订阅服务
 │   └── wrangler.toml           # Worker 配置文件
 ├── docs/
 │   ├── index.html              # 前端看板 (HTML5 + CSS3 + Vanilla JS)
-│   └── data.json               # (自动生成) 最新监控数据
+│   ├── config.js               # (Actions 自动生成) 敏感配置
+│   └── data.json               # (Actions 自动生成) 最新监控数据
 ├── github_action_runner.py     # 核心脚本: 爬虫、计算、通知、生成数据
 ├── send_confirmation.py        # 订阅确认邮件发送脚本
 ├── requirements.txt            # Python 依赖库
@@ -95,8 +116,8 @@ trading_rsi_app/
 | `GIST_TOKEN_WRITE` | ❌ | GitHub Token (Gist 读写，用于更新订阅状态) | `github_pat_xxx` |
 | `GIST_ID` | ❌ | Gist ID (用于确认邮件功能) | `abc123def456` |
 | `GIST_FILENAME` | ❌ | Gist 文件名 | `subscribers.txt` |
-| `SUBSCRIBE_WORKER_URL` | ❌ | Cloudflare Worker 地址 | `https://xxx.workers.dev` |
-| `FORMSPREE_ID` | ❌ | Formspree 表单 ID (备用订阅方案) | `xzzqlybo` |
+| `SUBSCRIBE_WORKER_URL` | ❌ | Cloudflare Worker 地址 (注入到 config.js) | `https://xxx.workers.dev` |
+| `FORMSPREE_ID` | ❌ | Formspree 表单 ID (备用订阅，注入到 config.js) | `xzzqlybo` |
 | `SERVERCHAN_KEY` | ❌ | Server酱 SendKey (微信通知) | `SCTxxxxxxxx` |
 
 > **⚠️ 注意**：默认使用 `smtp.126.com`。如需其他邮箱服务商，请额外配置 `SMTP_SERVER` 和 `SMTP_PORT`。
@@ -110,10 +131,11 @@ trading_rsi_app/
 | `RSI_SELL_THRESHOLD` | `70` | RSI **高于** 此值触发卖出提醒 |
 
 ### 4. 启用 GitHub Pages
-1. 进入 **Actions** 页面，手动触发一次 "Daily RSI Check" 工作流。
-2. 待运行成功后，进入 **Settings** → **Pages**。
-3. **Source** 选择 `Deploy from a branch`，分支选择 `main`，文件夹选择 `/docs`。
-4. 保存后，您的看板将在 `https://<您的用户名>.github.io/JTrading/` 上线。
+1. 进入 **Actions** 页面，手动触发一次 **"Daily RSI Check"** 工作流。
+2. ⚠️ **重要**：首次运行会生成 `config.js`，使订阅功能正常工作。
+3. 待运行成功后，进入 **Settings** → **Pages**。
+4. **Source** 选择 `Deploy from a branch`，分支选择 `main`，文件夹选择 `/docs`。
+5. 保存后，您的看板将在 `https://<您的用户名>.github.io/JTrading/` 上线。
 
 ---
 
@@ -130,7 +152,7 @@ trading_rsi_app/
                                         ↓
                               发送 HTML 确认邮件
                                         ↓
-                              移除 [pending] 标记
+                              移除 [pending] 标记 → 正式订阅
 ```
 
 ### 步骤 1: 创建私有 Gist
@@ -193,9 +215,15 @@ trading_rsi_app/
 | `GIST_FILENAME` | `subscribers.txt` |
 | `GIST_TOKEN_WRITE` | Gist 读写 Token |
 
+### 步骤 5: 触发 Actions 生成 config.js
+
+1. 进入 **Actions** 页面
+2. 点击 **"Daily RSI Check"** → **Run workflow**
+3. 运行完成后，`docs/config.js` 会被自动生成并包含真实配置
+
 ### ✅ 完成！
 
-手动触发一次 GitHub Actions，前端将自动连接到您的订阅服务。新订阅者将在 **1 分钟内** 收到精美的 HTML 确认邮件！
+现在前端订阅功能已启用，新订阅者将在 **1 分钟内** 收到精美的 HTML 确认邮件！
 
 ---
 
@@ -206,8 +234,25 @@ trading_rsi_app/
 1. 访问 [formspree.io](https://formspree.io) 注册
 2. 创建表单，获取表单 ID（如 `xzzqlybo`）
 3. 添加到 GitHub Secrets：`FORMSPREE_ID`
+4. 手动触发一次 **"Daily RSI Check"** 以更新 `config.js`
 
 > **注意**：Formspree 只收集邮箱，不会自动添加到订阅列表，需要手动处理。
+
+---
+
+## 🔐 配置安全说明
+
+本项目采用 **配置与代码分离** 的安全设计：
+
+| 文件 | 位置 | 内容 |
+|------|------|------|
+| `index.html` | 源码 (公开) | 读取 `CONFIG` 对象，不含敏感信息 |
+| `config.js` | Actions 生成 | 包含实际 URL，由 Secrets 注入 |
+
+**优势**：
+- ✅ 源码可安全开源，不暴露隐私
+- ✅ 敏感配置存储在 GitHub Secrets 中
+- ✅ Actions 自动注入，无需手动维护
 
 ---
 
@@ -215,24 +260,39 @@ trading_rsi_app/
 
 如果您想在本地修改前端或调试脚本：
 
-1.  **安装依赖**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-2.  **设置环境变量** (PowerShell 示例):
-    ```powershell
-    $env:SENDER_EMAIL="your_email@126.com"
-    $env:SENDER_PASSWORD="your_smtp_password"
-    $env:SUBSCRIBER_EMAILS="test@example.com"
-    # 或者使用 Gist 方式
-    # $env:GIST_SUBSCRIBERS_URL="https://gist.githubusercontent.com/..."
-    # $env:GIST_TOKEN="github_pat_xxxxx"
-    ```
-3.  **运行脚本**:
-    ```bash
-    python github_action_runner.py
-    ```
-    脚本运行后会在 `docs` 目录下生成 `data.json`，您可以直接打开 `docs/index.html` 查看效果。
+### 1. 安装依赖
+```bash
+pip install -r requirements.txt
+```
+
+### 2. 设置环境变量 (PowerShell 示例)
+```powershell
+$env:SENDER_EMAIL="your_email@126.com"
+$env:SENDER_PASSWORD="your_smtp_password"
+$env:SUBSCRIBER_EMAILS="test@example.com"
+# 或者使用 Gist 方式
+# $env:GIST_SUBSCRIBERS_URL="https://gist.githubusercontent.com/..."
+# $env:GIST_TOKEN="github_pat_xxxxx"
+```
+
+### 3. 运行脚本
+```bash
+python github_action_runner.py
+```
+
+### 4. 本地测试前端订阅
+
+由于 `config.js` 由 Actions 生成，本地测试时需手动创建：
+
+```javascript
+// docs/config.js (本地测试用，请勿提交)
+const CONFIG = {
+  WORKER_URL: 'https://your-worker.workers.dev/',
+  FORMSPREE_ID: 'your_formspree_id'
+};
+```
+
+然后打开 `docs/index.html` 查看效果。
 
 ---
 
