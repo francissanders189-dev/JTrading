@@ -365,6 +365,16 @@ def calculate_statistics(daily_values, trades):
     }
 
 
+def calculate_annual_return(total_return_pct, days):
+    """计算复利年化收益率
+    
+    公式: annual_return = (1 + total_return) ^ (365/days) - 1
+    """
+    if days <= 0 or total_return_pct is None:
+        return None
+    return round(((1 + total_return_pct / 100) ** (365 / days) - 1) * 100, 2)
+
+
 # ============ 主程序 ============
 def main():
     print("=" * 60)
@@ -431,6 +441,17 @@ def main():
     strategy_stats = calculate_statistics(strategy_values, trades)
     buyhold_stats = calculate_statistics(buyhold_values, [])
     
+    # 计算回测天数（用于年化收益计算）
+    backtest_days = strategy_stats['days']
+    
+    # 计算各基准的年化收益率
+    buyhold_no_div_return = round(buyhold_no_div[-1]['return'], 2) if buyhold_no_div else None
+    buyhold_no_div_annual = calculate_annual_return(buyhold_no_div_return, backtest_days)
+    
+    benchmark_annuals = {}
+    for key in benchmark_returns:
+        benchmark_annuals[key] = calculate_annual_return(benchmark_returns.get(key), backtest_days)
+    
     print("\n" + "=" * 60)
     print("回测结果")
     print("=" * 60)
@@ -468,10 +489,15 @@ def main():
         'statistics': {
             'strategy': strategy_stats,
             'buyhold': buyhold_stats,
-            'buyhold_no_div_return': round(buyhold_no_div[-1]['return'], 2) if buyhold_no_div else None,
+            'buyhold_no_div_return': buyhold_no_div_return,
+            'buyhold_no_div_annual': buyhold_no_div_annual,
             'hs300_return': benchmark_returns.get('hs300'),
+            'hs300_annual': benchmark_annuals.get('hs300'),
             'gold_return': benchmark_returns.get('gold'),
+            'gold_annual': benchmark_annuals.get('gold'),
             'nasdaq_return': benchmark_returns.get('nasdaq'),
+            'nasdaq_annual': benchmark_annuals.get('nasdaq'),
+            'backtest_days': backtest_days,
         },
         'trades': trades,
         'daily_values': {

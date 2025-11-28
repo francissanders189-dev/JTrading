@@ -6,7 +6,7 @@
     "initial_capital": 100000,
     "start_date": "2019-01-18",
     "end_date": "2025-11-28",
-    "generated_at": "2025-11-28 17:12:08"
+    "generated_at": "2025-11-28 17:23:44"
   },
   "statistics": {
     "strategy": {
@@ -30,9 +30,14 @@
       "days": 1663
     },
     "buyhold_no_div_return": 139.84,
+    "buyhold_no_div_annual": 21.17,
     "hs300_return": 69.41,
+    "hs300_annual": 12.27,
     "gold_return": 222.55,
-    "nasdaq_return": 290.32
+    "gold_annual": 29.31,
+    "nasdaq_return": 290.32,
+    "nasdaq_annual": 34.84,
+    "backtest_days": 1663
   },
   "trades": [
     {
