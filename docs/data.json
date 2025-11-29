@@ -1,5 +1,15 @@
 {
-  "rsi": 47.339,
-  "price": 1.204,
-  "timestamp": "2025-11-29 15:24:01 (GitHub Actions)"
+  "etf_code": "159941",
+  "etf_name": "纳指ETF联结基金",
+  "rsi": 56.88,
+  "rsi_period": 15,
+  "price": 1.452,
+  "buy_threshold": 32,
+  "sell_threshold": 77,
+  "signal": "持有",
+  "signal_color": "#3b82f6",
+  "strategy": "RSI(15) EMA 32/77",
+  "backtest_return": "268.02%",
+  "backtest_annual": "20.90%",
+  "timestamp": "2025-11-29 16:03:52 (北京时间)"
 }
