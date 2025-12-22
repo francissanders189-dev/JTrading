@@ -1,0 +1,823 @@
+{
+  "meta": {
+    "etf_code": "512890",
+    "generated_at": "2025-12-12 21:41:56",
+    "volume_window": 250,
+    "buy_thresholds": [
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      1.7,
+      1.8,
+      1.9,
+      2.0,
+      2.2,
+      2.5,
+      3.0
+    ],
+    "sell_thresholds": [
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "strategy": "量能策略（放量买入，缩量卖出）"
+  },
+  "best_by_total_return": {
+    "buy_threshold": 1.5,
+    "sell_threshold": 0.5,
+    "total_return": 149.32079879445374,
+    "annual_return": 14.147658258626382,
+    "max_drawdown": 16.572717023675324,
+    "trade_count": 9,
+    "win_rate": 88.88888888888889,
+    "trades": [
+      {
+        "date": "2020-02-04",
+        "action": "买入",
+        "price": 0.543,
+        "shares": 184162.06261510128,
+        "amount": 100000,
+        "volume_ratio": 2.110232468259954,
+        "signal": "放量2.11倍 > 1.5"
+      },
+      {
+        "date": "2020-02-21",
+        "action": "卖出",
+        "price": 0.579,
+        "shares": 184162.06261510128,
+        "amount": 106629.83425414363,
+        "volume_ratio": 0.36286947717127627,
+        "signal": "缩量0.36倍 < 0.5"
+      },
+      {
+        "date": "2020-03-02",
+        "action": "买入",
+        "price": 0.58,
+        "shares": 183844.54181748902,
+        "amount": 106629.83425414363,
+        "volume_ratio": 1.9432481490048121,
+        "signal": "放量1.94倍 > 1.5"
+      },
+      {
+        "date": "2020-11-17",
+        "action": "卖出",
+        "price": 0.706,
+        "shares": 183844.54181748902,
+        "amount": 129794.24652314725,
+        "volume_ratio": 0.4088916592801763,
+        "signal": "缩量0.41倍 < 0.5"
+      },
+      {
+        "date": "2020-12-22",
+        "action": "买入",
+        "price": 0.666,
+        "shares": 194886.25604076163,
+        "amount": 129794.24652314725,
+        "volume_ratio": 1.5153647699443347,
+        "signal": "放量1.52倍 > 1.5"
+      },
+      {
+        "date": "2021-04-19",
+        "action": "卖出",
+        "price": 0.722,
+        "shares": 194886.25604076163,
+        "amount": 140707.8768614299,
+        "volume_ratio": 0.4686729819551357,
+        "signal": "缩量0.47倍 < 0.5"
+      },
+      {
+        "date": "2021-07-26",
+        "action": "买入",
+        "price": 0.731,
+        "shares": 192486.83565175088,
+        "amount": 140707.8768614299,
+        "volume_ratio": 1.6845417922710604,
+        "signal": "放量1.68倍 > 1.5"
+      },
+      {
+        "date": "2023-08-04",
+        "action": "卖出",
+        "price": 0.962,
+        "shares": 192486.83565175088,
+        "amount": 185172.33589698435,
+        "volume_ratio": 0.3586117200881367,
+        "signal": "缩量0.36倍 < 0.5"
+      },
+      {
+        "date": "2023-09-04",
+        "action": "买入",
+        "price": 0.956,
+        "shares": 193694.91202613426,
+        "amount": 185172.33589698435,
+        "volume_ratio": 1.529276002291762,
+        "signal": "放量1.53倍 > 1.5"
+      },
+      {
+        "date": "2023-11-08",
+        "action": "卖出",
+        "price": 0.919,
+        "shares": 193694.91202613426,
+        "amount": 178005.6241520174,
+        "volume_ratio": 0.49291626062738486,
+        "signal": "缩量0.49倍 < 0.5"
+      },
+      {
+        "date": "2024-01-22",
+        "action": "买入",
+        "price": 0.898,
+        "shares": 198224.5257817566,
+        "amount": 178005.6241520174,
+        "volume_ratio": 1.9146458693088637,
+        "signal": "放量1.91倍 > 1.5"
+      },
+      {
+        "date": "2024-08-08",
+        "action": "卖出",
+        "price": 1.012,
+        "shares": 198224.5257817566,
+        "amount": 200603.22009113766,
+        "volume_ratio": 0.37687949021711775,
+        "signal": "缩量0.38倍 < 0.5"
+      },
+      {
+        "date": "2024-08-29",
+        "action": "买入",
+        "price": 1.008,
+        "shares": 199011.13104279528,
+        "amount": 200603.22009113766,
+        "volume_ratio": 1.6808896519403955,
+        "signal": "放量1.68倍 > 1.5"
+      },
+      {
+        "date": "2025-01-20",
+        "action": "卖出",
+        "price": 1.085,
+        "shares": 199011.13104279528,
+        "amount": 215927.0771814329,
+        "volume_ratio": 0.48537251709026924,
+        "signal": "缩量0.49倍 < 0.5"
+      },
+      {
+        "date": "2025-04-07",
+        "action": "买入",
+        "price": 1.064,
+        "shares": 202938.98231337676,
+        "amount": 215927.0771814329,
+        "volume_ratio": 2.628075166261911,
+        "signal": "放量2.63倍 > 1.5"
+      },
+      {
+        "date": "2025-07-03",
+        "action": "卖出",
+        "price": 1.201,
+        "shares": 202938.98231337676,
+        "amount": 243729.7177583655,
+        "volume_ratio": 0.4015406448267962,
+        "signal": "缩量0.40倍 < 0.5"
+      },
+      {
+        "date": "2025-10-14",
+        "action": "买入",
+        "price": 1.177,
+        "shares": 207077.07541067587,
+        "amount": 243729.7177583655,
+        "volume_ratio": 1.530044204697559,
+        "signal": "放量1.53倍 > 1.5"
+      },
+      {
+        "date": "2025-11-28",
+        "action": "卖出",
+        "price": 1.204,
+        "shares": 207077.07541067587,
+        "amount": 249320.79879445373,
+        "volume_ratio": 0.4754834251659672,
+        "signal": "缩量0.48倍 < 0.5"
+      }
+    ]
+  },
+  "best_by_annual_return": {
+    "buy_threshold": 1.5,
+    "sell_threshold": 0.5,
+    "total_return": 149.32079879445374,
+    "annual_return": 14.147658258626382,
+    "max_drawdown": 16.572717023675324,
+    "trade_count": 9,
+    "win_rate": 88.88888888888889,
+    "trades": [
+      {
+        "date": "2020-02-04",
+        "action": "买入",
+        "price": 0.543,
+        "shares": 184162.06261510128,
+        "amount": 100000,
+        "volume_ratio": 2.110232468259954,
+        "signal": "放量2.11倍 > 1.5"
+      },
+      {
+        "date": "2020-02-21",
+        "action": "卖出",
+        "price": 0.579,
+        "shares": 184162.06261510128,
+        "amount": 106629.83425414363,
+        "volume_ratio": 0.36286947717127627,
+        "signal": "缩量0.36倍 < 0.5"
+      },
+      {
+        "date": "2020-03-02",
+        "action": "买入",
+        "price": 0.58,
+        "shares": 183844.54181748902,
+        "amount": 106629.83425414363,
+        "volume_ratio": 1.9432481490048121,
+        "signal": "放量1.94倍 > 1.5"
+      },
+      {
+        "date": "2020-11-17",
+        "action": "卖出",
+        "price": 0.706,
+        "shares": 183844.54181748902,
+        "amount": 129794.24652314725,
+        "volume_ratio": 0.4088916592801763,
+        "signal": "缩量0.41倍 < 0.5"
+      },
+      {
+        "date": "2020-12-22",
+        "action": "买入",
+        "price": 0.666,
+        "shares": 194886.25604076163,
+        "amount": 129794.24652314725,
+        "volume_ratio": 1.5153647699443347,
+        "signal": "放量1.52倍 > 1.5"
+      },
+      {
+        "date": "2021-04-19",
+        "action": "卖出",
+        "price": 0.722,
+        "shares": 194886.25604076163,
+        "amount": 140707.8768614299,
+        "volume_ratio": 0.4686729819551357,
+        "signal": "缩量0.47倍 < 0.5"
+      },
+      {
+        "date": "2021-07-26",
+        "action": "买入",
+        "price": 0.731,
+        "shares": 192486.83565175088,
+        "amount": 140707.8768614299,
+        "volume_ratio": 1.6845417922710604,
+        "signal": "放量1.68倍 > 1.5"
+      },
+      {
+        "date": "2023-08-04",
+        "action": "卖出",
+        "price": 0.962,
+        "shares": 192486.83565175088,
+        "amount": 185172.33589698435,
+        "volume_ratio": 0.3586117200881367,
+        "signal": "缩量0.36倍 < 0.5"
+      },
+      {
+        "date": "2023-09-04",
+        "action": "买入",
+        "price": 0.956,
+        "shares": 193694.91202613426,
+        "amount": 185172.33589698435,
+        "volume_ratio": 1.529276002291762,
+        "signal": "放量1.53倍 > 1.5"
+      },
+      {
+        "date": "2023-11-08",
+        "action": "卖出",
+        "price": 0.919,
+        "shares": 193694.91202613426,
+        "amount": 178005.6241520174,
+        "volume_ratio": 0.49291626062738486,
+        "signal": "缩量0.49倍 < 0.5"
+      },
+      {
+        "date": "2024-01-22",
+        "action": "买入",
+        "price": 0.898,
+        "shares": 198224.5257817566,
+        "amount": 178005.6241520174,
+        "volume_ratio": 1.9146458693088637,
+        "signal": "放量1.91倍 > 1.5"
+      },
+      {
+        "date": "2024-08-08",
+        "action": "卖出",
+        "price": 1.012,
+        "shares": 198224.5257817566,
+        "amount": 200603.22009113766,
+        "volume_ratio": 0.37687949021711775,
+        "signal": "缩量0.38倍 < 0.5"
+      },
+      {
+        "date": "2024-08-29",
+        "action": "买入",
+        "price": 1.008,
+        "shares": 199011.13104279528,
+        "amount": 200603.22009113766,
+        "volume_ratio": 1.6808896519403955,
+        "signal": "放量1.68倍 > 1.5"
+      },
+      {
+        "date": "2025-01-20",
+        "action": "卖出",
+        "price": 1.085,
+        "shares": 199011.13104279528,
+        "amount": 215927.0771814329,
+        "volume_ratio": 0.48537251709026924,
+        "signal": "缩量0.49倍 < 0.5"
+      },
+      {
+        "date": "2025-04-07",
+        "action": "买入",
+        "price": 1.064,
+        "shares": 202938.98231337676,
+        "amount": 215927.0771814329,
+        "volume_ratio": 2.628075166261911,
+        "signal": "放量2.63倍 > 1.5"
+      },
+      {
+        "date": "2025-07-03",
+        "action": "卖出",
+        "price": 1.201,
+        "shares": 202938.98231337676,
+        "amount": 243729.7177583655,
+        "volume_ratio": 0.4015406448267962,
+        "signal": "缩量0.40倍 < 0.5"
+      },
+      {
+        "date": "2025-10-14",
+        "action": "买入",
+        "price": 1.177,
+        "shares": 207077.07541067587,
+        "amount": 243729.7177583655,
+        "volume_ratio": 1.530044204697559,
+        "signal": "放量1.53倍 > 1.5"
+      },
+      {
+        "date": "2025-11-28",
+        "action": "卖出",
+        "price": 1.204,
+        "shares": 207077.07541067587,
+        "amount": 249320.79879445373,
+        "volume_ratio": 0.4754834251659672,
+        "signal": "缩量0.48倍 < 0.5"
+      }
+    ]
+  },
+  "best_by_sharpe": {
+    "buy_threshold": 1.5,
+    "sell_threshold": 0.5,
+    "total_return": 149.32079879445374,
+    "annual_return": 14.147658258626382,
+    "max_drawdown": 16.572717023675324,
+    "trade_count": 9,
+    "win_rate": 88.88888888888889,
+    "trades": [
+      {
+        "date": "2020-02-04",
+        "action": "买入",
+        "price": 0.543,
+        "shares": 184162.06261510128,
+        "amount": 100000,
+        "volume_ratio": 2.110232468259954,
+        "signal": "放量2.11倍 > 1.5"
+      },
+      {
+        "date": "2020-02-21",
+        "action": "卖出",
+        "price": 0.579,
+        "shares": 184162.06261510128,
+        "amount": 106629.83425414363,
+        "volume_ratio": 0.36286947717127627,
+        "signal": "缩量0.36倍 < 0.5"
+      },
+      {
+        "date": "2020-03-02",
+        "action": "买入",
+        "price": 0.58,
+        "shares": 183844.54181748902,
+        "amount": 106629.83425414363,
+        "volume_ratio": 1.9432481490048121,
+        "signal": "放量1.94倍 > 1.5"
+      },
+      {
+        "date": "2020-11-17",
+        "action": "卖出",
+        "price": 0.706,
+        "shares": 183844.54181748902,
+        "amount": 129794.24652314725,
+        "volume_ratio": 0.4088916592801763,
+        "signal": "缩量0.41倍 < 0.5"
+      },
+      {
+        "date": "2020-12-22",
+        "action": "买入",
+        "price": 0.666,
+        "shares": 194886.25604076163,
+        "amount": 129794.24652314725,
+        "volume_ratio": 1.5153647699443347,
+        "signal": "放量1.52倍 > 1.5"
+      },
+      {
+        "date": "2021-04-19",
+        "action": "卖出",
+        "price": 0.722,
+        "shares": 194886.25604076163,
+        "amount": 140707.8768614299,
+        "volume_ratio": 0.4686729819551357,
+        "signal": "缩量0.47倍 < 0.5"
+      },
+      {
+        "date": "2021-07-26",
+        "action": "买入",
+        "price": 0.731,
+        "shares": 192486.83565175088,
+        "amount": 140707.8768614299,
+        "volume_ratio": 1.6845417922710604,
+        "signal": "放量1.68倍 > 1.5"
+      },
+      {
+        "date": "2023-08-04",
+        "action": "卖出",
+        "price": 0.962,
+        "shares": 192486.83565175088,
+        "amount": 185172.33589698435,
+        "volume_ratio": 0.3586117200881367,
+        "signal": "缩量0.36倍 < 0.5"
+      },
+      {
+        "date": "2023-09-04",
+        "action": "买入",
+        "price": 0.956,
+        "shares": 193694.91202613426,
+        "amount": 185172.33589698435,
+        "volume_ratio": 1.529276002291762,
+        "signal": "放量1.53倍 > 1.5"
+      },
+      {
+        "date": "2023-11-08",
+        "action": "卖出",
+        "price": 0.919,
+        "shares": 193694.91202613426,
+        "amount": 178005.6241520174,
+        "volume_ratio": 0.49291626062738486,
+        "signal": "缩量0.49倍 < 0.5"
+      },
+      {
+        "date": "2024-01-22",
+        "action": "买入",
+        "price": 0.898,
+        "shares": 198224.5257817566,
+        "amount": 178005.6241520174,
+        "volume_ratio": 1.9146458693088637,
+        "signal": "放量1.91倍 > 1.5"
+      },
+      {
+        "date": "2024-08-08",
+        "action": "卖出",
+        "price": 1.012,
+        "shares": 198224.5257817566,
+        "amount": 200603.22009113766,
+        "volume_ratio": 0.37687949021711775,
+        "signal": "缩量0.38倍 < 0.5"
+      },
+      {
+        "date": "2024-08-29",
+        "action": "买入",
+        "price": 1.008,
+        "shares": 199011.13104279528,
+        "amount": 200603.22009113766,
+        "volume_ratio": 1.6808896519403955,
+        "signal": "放量1.68倍 > 1.5"
+      },
+      {
+        "date": "2025-01-20",
+        "action": "卖出",
+        "price": 1.085,
+        "shares": 199011.13104279528,
+        "amount": 215927.0771814329,
+        "volume_ratio": 0.48537251709026924,
+        "signal": "缩量0.49倍 < 0.5"
+      },
+      {
+        "date": "2025-04-07",
+        "action": "买入",
+        "price": 1.064,
+        "shares": 202938.98231337676,
+        "amount": 215927.0771814329,
+        "volume_ratio": 2.628075166261911,
+        "signal": "放量2.63倍 > 1.5"
+      },
+      {
+        "date": "2025-07-03",
+        "action": "卖出",
+        "price": 1.201,
+        "shares": 202938.98231337676,
+        "amount": 243729.7177583655,
+        "volume_ratio": 0.4015406448267962,
+        "signal": "缩量0.40倍 < 0.5"
+      },
+      {
+        "date": "2025-10-14",
+        "action": "买入",
+        "price": 1.177,
+        "shares": 207077.07541067587,
+        "amount": 243729.7177583655,
+        "volume_ratio": 1.530044204697559,
+        "signal": "放量1.53倍 > 1.5"
+      },
+      {
+        "date": "2025-11-28",
+        "action": "卖出",
+        "price": 1.204,
+        "shares": 207077.07541067587,
+        "amount": 249320.79879445373,
+        "volume_ratio": 0.4754834251659672,
+        "signal": "缩量0.48倍 < 0.5"
+      }
+    ]
+  },
+  "top_30": [
+    {
+      "buy_threshold": 1.5,
+      "sell_threshold": 0.5,
+      "total_return": 149.32079879445374,
+      "annual_return": 14.147658258626382,
+      "max_drawdown": 16.572717023675324,
+      "trade_count": 9,
+      "win_rate": 88.88888888888889
+    },
+    {
+      "buy_threshold": 1.7,
+      "sell_threshold": 0.5,
+      "total_return": 138.79771353586455,
+      "annual_return": 13.436905066879978,
+      "max_drawdown": 16.5727170236753,
+      "trade_count": 6,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.6,
+      "sell_threshold": 0.5,
+      "total_return": 133.8772066136567,
+      "annual_return": 13.095330927910176,
+      "max_drawdown": 16.572717023675313,
+      "trade_count": 6,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.6,
+      "sell_threshold": 0.4,
+      "total_return": 132.1333576675022,
+      "annual_return": 12.972799709336758,
+      "max_drawdown": 16.572717023675303,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.4,
+      "sell_threshold": 0.5,
+      "total_return": 132.73566386919566,
+      "annual_return": 13.015209359156765,
+      "max_drawdown": 16.75136812018544,
+      "trade_count": 9,
+      "win_rate": 88.88888888888889
+    },
+    {
+      "buy_threshold": 1.7,
+      "sell_threshold": 0.4,
+      "total_return": 130.53243795945048,
+      "annual_return": 12.859616381566696,
+      "max_drawdown": 16.572717023675303,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.8,
+      "sell_threshold": 0.4,
+      "total_return": 130.53243795945048,
+      "annual_return": 12.859616381566696,
+      "max_drawdown": 16.572717023675303,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.9,
+      "sell_threshold": 0.4,
+      "total_return": 130.53243795945048,
+      "annual_return": 12.859616381566696,
+      "max_drawdown": 16.572717023675303,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.8,
+      "sell_threshold": 0.5,
+      "total_return": 128.5130206244949,
+      "annual_return": 12.71588308745557,
+      "max_drawdown": 16.572717023675313,
+      "trade_count": 6,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.9,
+      "sell_threshold": 0.5,
+      "total_return": 128.5130206244949,
+      "annual_return": 12.71588308745557,
+      "max_drawdown": 16.572717023675313,
+      "trade_count": 6,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.3,
+      "sell_threshold": 0.5,
+      "total_return": 126.7063209045165,
+      "annual_return": 12.586366511247228,
+      "max_drawdown": 16.751368120185433,
+      "trade_count": 10,
+      "win_rate": 90.0
+    },
+    {
+      "buy_threshold": 1.2,
+      "sell_threshold": 0.5,
+      "total_return": 121.20461136512498,
+      "annual_return": 12.186455371663317,
+      "max_drawdown": 16.751368120185443,
+      "trade_count": 11,
+      "win_rate": 72.72727272727273
+    },
+    {
+      "buy_threshold": 1.5,
+      "sell_threshold": 0.4,
+      "total_return": 118.0499531228211,
+      "annual_return": 11.95329510029266,
+      "max_drawdown": 16.572717023675303,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.3,
+      "sell_threshold": 0.4,
+      "total_return": 117.9014926883919,
+      "annual_return": 11.94225150710464,
+      "max_drawdown": 16.75136812018544,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.2,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.3,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.4,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.5,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.6,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.7,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.8,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.9,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 2.0,
+      "sell_threshold": 0.3,
+      "total_return": 116.20626151012887,
+      "annual_return": 11.815689215650348,
+      "max_drawdown": 16.572717023675317,
+      "trade_count": 0,
+      "win_rate": 0
+    },
+    {
+      "buy_threshold": 1.2,
+      "sell_threshold": 0.4,
+      "total_return": 112.58682213501655,
+      "annual_return": 11.5426040938045,
+      "max_drawdown": 16.751368120185443,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.4,
+      "sell_threshold": 0.4,
+      "total_return": 109.72743582805693,
+      "annual_return": 11.324038910508417,
+      "max_drawdown": 16.751368120185454,
+      "trade_count": 3,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 1.6,
+      "sell_threshold": 0.6,
+      "total_return": 78.56661231647072,
+      "annual_return": 8.760468406740717,
+      "max_drawdown": 14.762072980376653,
+      "trade_count": 18,
+      "win_rate": 72.22222222222221
+    },
+    {
+      "buy_threshold": 2.0,
+      "sell_threshold": 0.6,
+      "total_return": 50.397040224983684,
+      "annual_return": 6.0892950925948375,
+      "max_drawdown": 10.259301014656135,
+      "trade_count": 6,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 2.2,
+      "sell_threshold": 0.5,
+      "total_return": 68.25835974927246,
+      "annual_return": 7.827800159314946,
+      "max_drawdown": 13.646532438478747,
+      "trade_count": 4,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 2.5,
+      "sell_threshold": 0.5,
+      "total_return": 68.25835974927246,
+      "annual_return": 7.827800159314946,
+      "max_drawdown": 13.646532438478747,
+      "trade_count": 4,
+      "win_rate": 100.0
+    },
+    {
+      "buy_threshold": 2.0,
+      "sell_threshold": 0.7,
+      "total_return": 36.214161973895486,
+      "annual_return": 4.578142330779333,
+      "max_drawdown": 7.717185123580913,
+      "trade_count": 8,
+      "win_rate": 87.5
+    }
+  ]
+}

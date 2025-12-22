@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSI+波动率 动态调优回测</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23a08050%22/><text x=%2250%22 y=%2265%22 font-size=%2248%22 font-weight=%22600%22 fill=%22%23fff%22 text-anchor=%22middle%22>JT</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #a08050;
+            --primary-strong: #7a6040;
+            --primary-soft: rgba(160, 128, 80, 0.14);
+            --success: #5a8a6a;
+            --warning: #a05050;
+            --muted: #8a8070;
+            --text: #332e26;
+            --text-2: #6f6657;
+            --bg: #0f0e10;
+            --card: #19181b;
+            --elevated: #201f22;
+            --border: #2f2d31;
+            --shadow: none;
+            --radius: 12px;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 32px 20px 48px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, var(--primary), var(--primary-strong));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .title h1 {
+            margin: 0;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #f5f0e6;
+            letter-spacing: -0.02em;
+        }
+
+        .title .subtitle {
+            margin-top: 4px;
+            color: var(--text-2);
+            font-weight: 500;
+        }
+
+        .back-btn {
+            padding: 9px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover { color: var(--primary); border-color: var(--primary); }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+        }
+
+        .stat-card.primary { border-color: var(--primary); background: var(--elevated); }
+
+        .stat-label { font-size: 0.8rem; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { margin-top: 6px; font-size: 1.9rem; font-weight: 700; color: #f8f4ec; letter-spacing: -0.03em; }
+        .stat-sub { margin-top: 6px; color: var(--text-2); font-weight: 600; }
+        .positive { color: var(--success); }
+        .negative { color: var(--warning); }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--elevated);
+        }
+
+        .card-title { font-weight: 700; color: #f5f0e6; display: flex; align-items: center; gap: 8px; }
+        .card-body { padding: 20px; }
+
+        .pill {
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--text-2);
+            font-weight: 600;
+            background: var(--card);
+        }
+
+        /* Strategy */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .rule {
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--elevated);
+        }
+
+        .rule h4 { margin: 0 0 6px; color: #f5f0e6; font-size: 0.95rem; }
+        .rule p { margin: 0; color: var(--text-2); }
+
+        /* Time buttons */
+        .time-range { display: flex; gap: 6px; }
+        .time-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text-2);
+            padding: 6px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .time-btn.active { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+        .chart-container { position: relative; width: 100%; height: 380px; }
+        .chart-container.small { height: 300px; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 14px; text-align: left; }
+        th { font-size: 0.8rem; color: var(--text-2); letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+        tr + tr td { border-top: 1px solid var(--border); }
+        tr.highlight { background: var(--primary-soft); }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 26px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .trade-card { margin-bottom: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--elevated); padding: 14px; }
+        .trade-head { display: flex; justify-content: space-between; color: #f5f0e6; font-weight: 600; }
+        .tag { padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; }
+        .tag.buy { background: rgba(90,138,106,0.15); color: var(--success); border: 1px solid rgba(90,138,106,0.3); }
+        .tag.sell { background: rgba(160,80,80,0.15); color: var(--warning); border: 1px solid rgba(160,80,80,0.3); }
+        .tag.open { background: var(--primary-soft); color: var(--primary); border: 1px solid var(--primary); }
+        .trade-meta { margin-top: 8px; color: var(--text-2); display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; }
+
+        /* Grid */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+
+        /* Footer */
+        .footer { text-align: center; color: var(--muted); margin-top: 32px; font-size: 0.9rem; }
+        .footer a { color: var(--primary); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="brand">
+                <div class="logo">JT</div>
+                <div class="title">
+                    <h1>RSI + 波动率 · 动态调优</h1>
+                    <div class="subtitle" id="subtitle">加载中...</div>
+                </div>
+            </div>
+            <a class="back-btn" href="index.html">← 返回监控</a>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card primary">
+                <div class="stat-label">总收益率</div>
+                <div class="stat-value" id="stat-return">--</div>
+                <div class="stat-sub" id="stat-annual">年化 --</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">最大回撤</div>
+                <div class="stat-value negative" id="stat-drawdown">--</div>
+                <div class="stat-sub">控制风险</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">交易次数</div>
+                <div class="stat-value" id="stat-trades">--</div>
+                <div class="stat-sub" id="stat-winrate">胜率 --</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">买入持有对比</div>
+                <div class="stat-value positive" id="stat-buyhold">--</div>
+                <div class="stat-sub" id="stat-benchmark">基准累积收益</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">平均持仓</div>
+                <div class="stat-value" id="stat-holding">--</div>
+                <div class="stat-sub" id="stat-holding-sub">平均 -- 天 · 最长 -- 天</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">策略要点 · RSI(15) x 波动率</div>
+                <div class="pill">联结基金 · 小数份额 · EMA平滑</div>
+            </div>
+            <div class="card-body">
+                <div class="strategy-grid">
+                    <div class="rule">
+                        <h4>低波稳态 · 抬高阈值</h4>
+                        <p>市场波动率处于低位时，放宽卖出阈值，保持盈利头寸。</p>
+                    </div>
+                    <div class="rule">
+                        <h4>高波防守 · 下探买点</h4>
+                        <p>恐慌期下调买入阈值，吸收急跌，待情绪修复再卖出。</p>
+                    </div>
+                    <div class="rule">
+                        <h4>RSI(15) EMA</h4>
+                        <p>使用 EMA 平滑噪声，配合波动率档位动态调整 RSI 触发区间。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">收益曲线</div>
+                <div class="time-range">
+                    <button class="time-btn" data-range="1y">1年</button>
+                    <button class="time-btn" data-range="3y">3年</button>
+                    <button class="time-btn" data-range="5y">5年</button>
+                    <button class="time-btn active" data-range="all">全部</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="returnChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">买卖阈值动态 · RSI & 波动率</div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container small">
+                    <canvas id="thresholdChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">回撤轨迹</div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container small">
+                    <canvas id="drawdownChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">年度收益</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container small">
+                        <canvas id="yearlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">持仓时间分布</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container small">
+                        <canvas id="holdingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">策略对比</div>
+            </div>
+            <div class="card-body">
+                <table>
+                    <thead>
+                        <tr><th>策略</th><th>总收益</th><th>年化</th><th>备注</th></tr>
+                    </thead>
+                    <tbody id="comparison-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">交易时间轴 · 动态调优</div>
+            </div>
+            <div class="card-body">
+                <div class="timeline" id="trade-timeline"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            ⚠️ 回测仅供学习参考，不构成投资建议 · 数据源 AKShare · <a href="index.html">返回监控</a>
+        </div>
+    </div>
+
+    <script>
+        let globalData = null;
+        let currentRange = 'all';
+        let returnChart, drawdownChart, yearlyChart, holdingChart, thresholdChart;
+
+        const dynamicParams = {
+            rsiPeriod: 15,
+            baseBuy: 34,
+            baseSell: 71,
+            volWindow: 47,
+            kVol: -0.43,
+            volAnchor: 15
+        };
+
+        async function load() {
+            try {
+                const res = await fetch('backtest_result.json');
+                if (!res.ok) throw new Error('data missing');
+                globalData = await res.json();
+                render(globalData);
+                setupRange();
+            } catch (e) {
+                document.getElementById('subtitle').textContent = '数据加载失败';
+                console.error(e);
+            }
+        }
+
+        function setupRange() {
+            document.querySelectorAll('.time-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentRange = btn.dataset.range;
+                    renderCharts(globalData.daily_values, globalData.trades);
+                    renderThresholdChart(globalData.daily_values);
+                });
+            });
+        }
+
+        function render(data) {
+            const { meta, statistics, trades, daily_values } = data;
+            const stats = statistics.strategy_dynamic || statistics.strategy || statistics.strategy_ideal;
+
+            document.getElementById('subtitle').textContent = `${meta.etf_name} (${meta.etf_code}) · ${meta.start_date} 至 ${meta.end_date}`;
+            document.getElementById('stat-return').textContent = `+${stats.total_return}%`;
+            document.getElementById('stat-annual').textContent = `年化 ${stats.annual_return}%`;
+            document.getElementById('stat-drawdown').textContent = `-${stats.max_drawdown}%`;
+            document.getElementById('stat-trades').textContent = stats.trade_count;
+            document.getElementById('stat-winrate').textContent = `胜率 ${stats.win_rate}%`;
+            document.getElementById('stat-buyhold').textContent = `+${statistics.buyhold.total_return}%`;
+            document.getElementById('stat-benchmark').textContent = `买入持有 ${statistics.buyhold.annual_return}% 年化`;
+
+            const dynTrades = data.trades_dynamic || trades;
+
+            renderComparison(statistics);
+            renderCharts(daily_values, dynTrades);
+            renderHolding(dynTrades);
+            renderTimeline(dynTrades);
+            renderThresholdChart(daily_values);
+        }
+
+        function filterRange(series) {
+            if (!series || series.length === 0 || currentRange === 'all') return series;
+            const end = new Date(series[series.length - 1].date);
+            const start = new Date(end);
+            if (currentRange === '1y') start.setFullYear(start.getFullYear() - 1);
+            if (currentRange === '3y') start.setFullYear(start.getFullYear() - 3);
+            if (currentRange === '5y') start.setFullYear(start.getFullYear() - 5);
+            const startStr = start.toISOString().split('T')[0];
+            const filtered = series.filter(d => d.date >= startStr);
+            if (filtered.length === 0) return series;
+            const base = filtered[0].return;
+            return filtered.map(d => ({ ...d, return: d.return - base }));
+        }
+
+        function getRangeMask(dates) {
+            if (currentRange === 'all') return dates.map(() => true);
+            if (!dates.length) return [];
+            const end = new Date(dates[dates.length - 1]);
+            const start = new Date(end);
+            if (currentRange === '1y') start.setFullYear(start.getFullYear() - 1);
+            if (currentRange === '3y') start.setFullYear(start.getFullYear() - 3);
+            if (currentRange === '5y') start.setFullYear(start.getFullYear() - 5);
+            const startStr = start.toISOString().split('T')[0];
+            return dates.map(d => d >= startStr);
+        }
+
+        function renderCharts(daily_values, trades) {
+            const ctx = document.getElementById('returnChart').getContext('2d');
+            const getSeries = (arr) => {
+                const f = filterRange(arr);
+                return { labels: f.map(d => d.date), values: f.map(d => d.return) };
+            };
+
+            const dyn = getSeries(daily_values.strategy_dynamic);
+            const ideal = getSeries(daily_values.strategy_ideal || daily_values.strategy);
+            const buy = getSeries(daily_values.buyhold);
+            const hs300 = daily_values.hs300 ? getSeries(daily_values.hs300) : { labels: [], values: [] };
+
+            if (returnChart) returnChart.destroy();
+            const grid = 'rgba(255,255,255,0.06)';
+            const text = '#7f7666';
+
+            returnChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dyn.labels,
+                    datasets: [
+                        { label: 'RSI+波动率 动态调优', data: dyn.values, borderColor: '#c9a962', backgroundColor: 'rgba(201,169,98,0.12)', fill: true, tension: 0.35, borderWidth: 2.6, pointRadius: 0 },
+                        { label: 'RSI(15) 联结基金', data: ideal.values, borderColor: '#5a8a6a', tension: 0.35, borderWidth: 1.6, pointRadius: 0 },
+                        { label: '买入持有', data: buy.values, borderColor: '#8a8070', tension: 0.35, borderWidth: 1.3, pointRadius: 0 }
+                    ].concat(hs300.values.length ? [{ label: '沪深300', data: hs300.values, borderColor: '#a05050', tension: 0.35, borderWidth: 1.2, pointRadius: 0 }] : [])
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { labels: { color: text, usePointStyle: true, padding: 12, font: { size: 11 } } },
+                        tooltip: { backgroundColor: 'rgba(18,18,20,0.96)', titleColor: '#f5f0e6', bodyColor: text, padding: 12, borderColor: '#2f2d31', borderWidth: 1, callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y >= 0 ? '+' : ''}${ctx.parsed.y.toFixed(2)}%` } }
+                    },
+                    scales: {
+                        x: { grid: { color: grid, drawTicks: false }, ticks: { color: text, maxTicksLimit: 8, maxRotation: 0 } },
+                        y: { grid: { color: grid, drawTicks: false }, ticks: { color: text, callback: v => v + '%' } }
+                    }
+                }
+            });
+
+            renderDrawdown(daily_values);
+            renderYearly(daily_values);
+            renderHolding(trades);
+        }
+
+        function computeRsiEma(closes, period) {
+            const res = Array(closes.length).fill(null);
+            let avgGain = 0;
+            let avgLoss = 0;
+            for (let i = 1; i < closes.length; i++) {
+                const change = closes[i] - closes[i - 1];
+                const gain = Math.max(change, 0);
+                const loss = Math.max(-change, 0);
+                if (i < period) {
+                    avgGain += gain;
+                    avgLoss += loss;
+                } else if (i === period) {
+                    avgGain = (avgGain + gain) / period;
+                    avgLoss = (avgLoss + loss) / period;
+                    const rs = avgLoss === 0 ? 100 : avgGain / avgLoss;
+                    res[i] = 100 - 100 / (1 + rs);
+                } else {
+                    avgGain = (avgGain * (period - 1) + gain) / period;
+                    avgLoss = (avgLoss * (period - 1) + loss) / period;
+                    const rs = avgLoss === 0 ? 100 : avgGain / avgLoss;
+                    res[i] = 100 - 100 / (1 + rs);
+                }
+            }
+            return res.map(v => v === null ? null : Number(v.toFixed(2)));
+        }
+
+        function computeVolatility(closes, window) {
+            const res = Array(closes.length).fill(null);
+            const logRet = [];
+            for (let i = 1; i < closes.length; i++) {
+                const lr = Math.log(closes[i] / closes[i - 1]);
+                logRet.push(lr);
+                if (logRet.length >= window) {
+                    const slice = logRet.slice(logRet.length - window);
+                    const mean = slice.reduce((a, b) => a + b, 0) / slice.length;
+                    const variance = slice.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / slice.length;
+                    const std = Math.sqrt(variance);
+                    res[i] = Number((std * Math.sqrt(252) * 100).toFixed(2));
+                }
+            }
+            return res;
+        }
+
+        function computeThresholdSeries(dailyValues) {
+            const series = dailyValues.strategy_dynamic || [];
+            const dates = series.map(d => d.date);
+            const closes = series.map(d => d.close);
+            const rsi = computeRsiEma(closes, dynamicParams.rsiPeriod);
+            const vol = computeVolatility(closes, dynamicParams.volWindow);
+
+            const buyThr = [];
+            const sellThr = [];
+            for (let i = 0; i < dates.length; i++) {
+                if (rsi[i] === null || vol[i] === null || Number.isNaN(vol[i])) {
+                    buyThr.push(null);
+                    sellThr.push(null);
+                    continue;
+                }
+                const volDiff = vol[i] - dynamicParams.volAnchor;
+                let buy = dynamicParams.baseBuy - dynamicParams.kVol * volDiff;
+                let sell = dynamicParams.baseSell + dynamicParams.kVol * volDiff;
+                buy = Math.min(50, Math.max(20, buy));
+                sell = Math.min(90, Math.max(60, sell));
+                buyThr.push(Number(buy.toFixed(2)));
+                sellThr.push(Number(sell.toFixed(2)));
+            }
+
+            return { dates, rsi, vol, buyThr, sellThr };
+        }
+
+        function renderThresholdChart(daily_values) {
+            const data = computeThresholdSeries(daily_values);
+            if (!data.dates.length) return;
+
+            const mask = getRangeMask(data.dates);
+            const labels = data.dates.filter((_, i) => mask[i]);
+            const buy = data.buyThr.filter((_, i) => mask[i]);
+            const sell = data.sellThr.filter((_, i) => mask[i]);
+            const rsi = data.rsi.filter((_, i) => mask[i]);
+            const vol = data.vol.filter((_, i) => mask[i]);
+
+            if (thresholdChart) thresholdChart.destroy();
+            const ctx = document.getElementById('thresholdChart').getContext('2d');
+            const grid = 'rgba(255,255,255,0.06)';
+            const text = '#7f7666';
+
+            thresholdChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: '买入阈值', data: buy, borderColor: '#5a8a6a', borderWidth: 1.8, pointRadius: 0, tension: 0.3 },
+                        { label: '卖出阈值', data: sell, borderColor: '#a05050', borderWidth: 1.8, pointRadius: 0, tension: 0.3 },
+                        { label: 'RSI(15)', data: rsi, borderColor: '#c9a962', backgroundColor: 'rgba(201,169,98,0.08)', fill: true, borderWidth: 1.6, pointRadius: 0, tension: 0.25 },
+                        { label: '波动率(年化%)', data: vol, yAxisID: 'vol', borderColor: '#4f86c6', borderDash: [6, 4], borderWidth: 1.4, pointRadius: 0, tension: 0.25 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { labels: { color: text, usePointStyle: true, padding: 12, font: { size: 11 } } },
+                        tooltip: {
+                            backgroundColor: 'rgba(18,18,20,0.96)',
+                            titleColor: '#f5f0e6',
+                            bodyColor: text,
+                            padding: 12,
+                            borderColor: '#2f2d31',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: grid, drawTicks: false }, ticks: { color: text, maxTicksLimit: 8, maxRotation: 0 } },
+                        y: { min: 0, max: 100, grid: { color: grid, drawTicks: false }, ticks: { color: text, callback: v => v + '' } },
+                        vol: { position: 'right', grid: { display: false }, ticks: { color: '#4f86c6', callback: v => v + '%' } }
+                    }
+                }
+            });
+        }
+
+        function renderDrawdown(daily_values) {
+            const ctx = document.getElementById('drawdownChart').getContext('2d');
+            const calc = (arr) => {
+                if (!arr || arr.length === 0) return [];
+                let peak = arr[0].total_value || 100000;
+                return arr.map(d => {
+                    const val = d.total_value || 100000 * (1 + d.return / 100);
+                    if (val > peak) peak = val;
+                    return -((peak - val) / peak) * 100;
+                });
+            };
+
+            if (drawdownChart) drawdownChart.destroy();
+            const grid = 'rgba(255,255,255,0.06)';
+            const text = '#7f7666';
+
+            drawdownChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: daily_values.strategy_dynamic.map(d => d.date),
+                    datasets: [
+                        { label: '动态调优', data: calc(daily_values.strategy_dynamic), borderColor: '#c9a962', backgroundColor: 'rgba(201,169,98,0.12)', fill: true, tension: 0.35, borderWidth: 2.2, pointRadius: 0 },
+                        { label: '联结基金基线', data: calc(daily_values.strategy_ideal || daily_values.strategy), borderColor: '#5a8a6a', tension: 0.35, borderWidth: 1.5, pointRadius: 0 },
+                        { label: '买入持有', data: calc(daily_values.buyhold), borderColor: '#8a8070', tension: 0.35, borderWidth: 1.2, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { labels: { color: text, usePointStyle: true } }, tooltip: { backgroundColor: 'rgba(18,18,20,0.96)', titleColor: '#f5f0e6', bodyColor: text, borderColor: '#2f2d31', borderWidth: 1, padding: 12, callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%` } } },
+                    scales: { x: { grid: { color: grid, drawTicks: false }, ticks: { color: text, maxTicksLimit: 8 } }, y: { max: 0, grid: { color: grid, drawTicks: false }, ticks: { color: text, callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        function renderYearly(daily_values) {
+            const ctx = document.getElementById('yearlyChart').getContext('2d');
+            const calc = (arr) => {
+                if (!arr || arr.length === 0) return {};
+                const byYear = {};
+                arr.forEach(d => {
+                    const y = d.date.slice(0, 4);
+                    if (!byYear[y]) byYear[y] = { start: d, end: d };
+                    byYear[y].end = d;
+                });
+                const years = Object.keys(byYear).sort();
+                const res = {};
+                years.forEach((y, idx) => {
+                    const prev = idx === 0 ? 100000 : 100000 * (1 + byYear[years[idx - 1]].end.return / 100);
+                    const end = 100000 * (1 + byYear[y].end.return / 100);
+                    res[y] = ((end / prev) - 1) * 100;
+                });
+                return res;
+            };
+
+            const dyn = calc(daily_values.strategy_dynamic);
+            const buy = calc(daily_values.buyhold);
+            const years = Object.keys(dyn).sort();
+
+            if (yearlyChart) yearlyChart.destroy();
+            const text = '#7f7666';
+            const grid = 'rgba(255,255,255,0.06)';
+
+            yearlyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [
+                        { label: '动态调优', data: years.map(y => dyn[y] || 0), backgroundColor: years.map(y => (dyn[y] || 0) >= 0 ? 'rgba(201,169,98,0.85)' : 'rgba(160,80,80,0.8)'), borderRadius: 4 },
+                        { label: '买入持有', data: years.map(y => buy[y] || 0), backgroundColor: years.map(y => (buy[y] || 0) >= 0 ? 'rgba(138,128,112,0.7)' : 'rgba(160,80,80,0.65)'), borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: text, usePointStyle: true } }, tooltip: { backgroundColor: 'rgba(18,18,20,0.96)', titleColor: '#f5f0e6', bodyColor: text, borderColor: '#2f2d31', borderWidth: 1, padding: 12, callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y >= 0 ? '+' : ''}${ctx.parsed.y.toFixed(2)}%` } } },
+                    scales: { x: { grid: { display: false }, ticks: { color: text } }, y: { grid: { color: grid }, ticks: { color: text, callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        function renderHolding(trades) {
+            const ctx = document.getElementById('holdingChart').getContext('2d');
+            const buys = trades.filter(t => t.action === '买入');
+            const sells = trades.filter(t => t.action === '卖出');
+            const labels = [];
+            const days = [];
+
+            for (let i = 0; i < sells.length; i++) {
+                if (i < buys.length) {
+                    const d = Math.round((new Date(sells[i].date) - new Date(buys[i].date)) / 86400000);
+                    labels.push(`第${i + 1}次`);
+                    days.push(d);
+                }
+            }
+            if (buys.length > sells.length && buys.length > 0) {
+                const d = Math.round((new Date() - new Date(buys[buys.length - 1].date)) / 86400000);
+                labels.push(`第${buys.length}次(持仓中)`);
+                days.push(d);
+            }
+
+            const avg = days.length ? Math.round(days.reduce((a, b) => a + b, 0) / days.length) : 0;
+            const max = days.length ? Math.max(...days) : 0;
+            document.getElementById('stat-holding').textContent = days.length ? `${avg} 天` : '--';
+            document.getElementById('stat-holding-sub').textContent = days.length ? `平均 ${avg} 天 · 最长 ${max} 天` : '平均 -- 天 · 最长 -- 天';
+
+            if (holdingChart) holdingChart.destroy();
+            const text = '#7f7666';
+            const grid = 'rgba(255,255,255,0.06)';
+
+            holdingChart = new Chart(ctx, {
+                type: 'bar',
+                data: { labels, datasets: [{ label: '持仓天数', data: days, backgroundColor: labels.map(l => l.includes('持仓中') ? 'rgba(201,169,98,0.9)' : 'rgba(201,169,98,0.7)'), borderRadius: 4 }] },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(18,18,20,0.96)', titleColor: '#f5f0e6', bodyColor: text, borderColor: '#2f2d31', borderWidth: 1, padding: 12, callbacks: { label: ctx => `持仓 ${ctx.parsed.x} 天` } } },
+                    scales: { x: { grid: { color: grid }, ticks: { color: text, callback: v => v + '天' } }, y: { grid: { display: false }, ticks: { color: text } } }
+                }
+            });
+        }
+
+        function renderComparison(statistics) {
+            const tbody = document.getElementById('comparison-tbody');
+            const rows = [
+                { name: 'RSI+波动率 动态调优', r: statistics.strategy_dynamic?.total_return, a: statistics.strategy_dynamic?.annual_return, note: '波动率档位自适应 RSI 阈值', highlight: true },
+                { name: 'RSI(15) 联结基金', r: statistics.strategy_ideal?.total_return || statistics.strategy?.total_return, a: statistics.strategy_ideal?.annual_return || statistics.strategy?.annual_return, note: 'EMA 平滑 + 小数份额' },
+                { name: '波动率 HV16/7', r: statistics.strategy_volatility?.total_return, a: statistics.strategy_volatility?.annual_return, note: '恐慌买入 / 过热卖出' },
+                { name: '反向均线 MA8/72', r: statistics.strategy_ma_reverse?.total_return, a: statistics.strategy_ma_reverse?.annual_return, note: '死叉买入 · 金叉卖出' },
+                { name: '买入持有', r: statistics.buyhold.total_return, a: statistics.buyhold.annual_return, note: '累积型ETF基准' },
+                { name: '沪深300ETF', r: statistics.hs300_return, a: statistics.hs300_annual, note: '大盘参考' }
+            ].filter(r => r.r !== undefined && r.r !== null);
+
+            rows.sort((a, b) => (b.a ?? -999) - (a.a ?? -999));
+            tbody.innerHTML = rows.map(row => `
+                <tr class="${row.highlight ? 'highlight' : ''}">
+                    <td><strong>${row.name}</strong></td>
+                    <td class="${row.r >= 0 ? 'positive' : 'negative'}">${row.r >= 0 ? '+' : ''}${row.r}%</td>
+                    <td>${row.a !== undefined && row.a !== null ? row.a + '%' : '--'}</td>
+                    <td style="color: var(--text-2);">${row.note}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderTimeline(trades) {
+            const container = document.getElementById('trade-timeline');
+            const pairs = [];
+            let open = null;
+
+            trades.forEach(t => {
+                if (t.action === '买入') open = t;
+                if (t.action === '卖出' && open) {
+                    const profit = ((t.price - open.price) / open.price * 100);
+                    const days = Math.round((new Date(t.date) - new Date(open.date)) / 86400000);
+                    pairs.push({ buy: open, sell: t, profit, days });
+                    open = null;
+                }
+            });
+            if (open) pairs.push({ buy: open, sell: null, profit: null, days: null });
+
+            container.innerHTML = pairs.reverse().map((p, idx) => {
+                const profitText = p.profit === null ? '持仓中' : `${p.profit >= 0 ? '+' : ''}${p.profit.toFixed(2)}%`;
+                const profitCls = p.profit === null ? 'open' : (p.profit >= 0 ? 'buy' : 'sell');
+                return `
+                    <div class="trade-card">
+                        <div class="trade-head">
+                            <span>第 ${pairs.length - idx} 轮</span>
+                            <span class="tag ${profitCls}">${profitText}</span>
+                        </div>
+                        ${p.sell ? `<div class="trade-meta"> <span>卖出: ${p.sell.date}</span><span>价格 ¥${p.sell.price.toFixed(3)}</span><span>数量 ${p.sell.shares.toFixed(0)}</span><span>持仓 ${p.days} 天</span></div>` : `<div class="trade-meta"><span>持仓中 · 等待卖出信号</span></div>`}
+                        <div class="trade-meta" style="margin-top:6px;"> <span>买入: ${p.buy.date}</span><span>价格 ¥${p.buy.price.toFixed(3)}</span><span>数量 ${p.buy.shares.toFixed(0)}</span></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        load();
+    </script>
+</body>
+</html>

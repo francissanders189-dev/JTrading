@@ -400,6 +400,9 @@ def main():
     benchmark_annuals = {}
     for key in benchmark_returns:
         benchmark_annuals[key] = calculate_annual_return(benchmark_returns.get(key), calendar_days)
+
+    # 记录回测天数供导出使用
+    backtest_days = strategy_stats.get('days', len(strategy_values))
     
     print("\n" + "=" * 60)
     print("回测结果")

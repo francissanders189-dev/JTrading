@@ -9,68 +9,83 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --primary: #9a7b4f;
-            --primary-hover: #b08d5b;
-            --accent: #c9a227;
-            --accent-glow: rgba(201, 162, 39, 0.15);
-            --success: #2d8659;
-            --success-bg: rgba(45, 134, 89, 0.08);
-            --danger: #c45c5c;
-            --danger-bg: rgba(196, 92, 92, 0.08);
-            --bg: #f5f3f0;
+            /* Advanced Gold Theme (Light) */
+            --primary: #a08050;
+            --primary-hover: #7a6040;
+            --primary-light: rgba(160, 128, 80, 0.15);
+            
+            --success: #5a8a6a;
+            --success-bg: rgba(90, 138, 106, 0.15);
+            
+            --danger: #a05050;
+            --danger-bg: rgba(160, 80, 80, 0.15);
+            
+            --bg: #faf9f7;
             --bg-card: #ffffff;
-            --bg-elevated: #faf9f7;
-            --text: #1f1d1a;
-            --text-secondary: #6b6560;
-            --text-muted: #9a948c;
-            --border: #e8e4df;
-            --border-light: #f0ece7;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow: 0 4px 12px rgba(0,0,0,0.06);
-            --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+            --bg-elevated: #f0ebe5;
+            
+            --text: #3a352d;
+            --text-secondary: #7a7060;
+            --text-muted: #8a8070;
+            
+            --border: #e8e4dc;
+            --border-light: #f5f5f4;
+            
+            --shadow-sm: none;
+            --shadow: none;
+            --shadow-lg: none;
+            
             --radius: 12px;
-            --radius-lg: 16px;
+            --radius-sm: 6px;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --primary: #c9a052;
-                --primary-hover: #d4ad62;
-                --accent: #e4b82d;
-                --accent-glow: rgba(228, 184, 45, 0.12);
-                --success: #4ead7a;
-                --success-bg: rgba(78, 173, 122, 0.1);
-                --danger: #e07070;
-                --danger-bg: rgba(224, 112, 112, 0.1);
-                --bg: #0f0f10;
-                --bg-card: #1a1a1c;
-                --bg-elevated: #222224;
-                --text: #f0ede8;
-                --text-secondary: #9a948c;
-                --text-muted: #5a5550;
-                --border: #2a2928;
-                --border-light: #1f1e1d;
-                --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
-                --shadow: 0 4px 12px rgba(0,0,0,0.3);
-                --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
+                /* Advanced Gold Theme (Dark) */
+                --primary: #c9a962;
+                --primary-hover: #d4b878;
+                --primary-light: rgba(201, 169, 98, 0.15);
+                
+                --success: #6a9a7a;
+                --success-bg: rgba(106, 154, 122, 0.15);
+                
+                --danger: #c07070;
+                --danger-bg: rgba(192, 112, 112, 0.15);
+                
+                --bg: #18171a;
+                --bg-card: #222124;
+                --bg-elevated: #2a292c;
+                
+                --text: #e8e4dc;
+                --text-secondary: #a09888;
+                --text-muted: #8a8070;
+                
+                --border: #3a3835;
+                --border-light: #2a292c;
+                
+                --shadow-sm: none;
+                --shadow: none;
+                --shadow-lg: none;
             }
         }
+
+        /* Light mode removed to force dark theme */
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.5;
             font-size: 14px;
             -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 32px 24px;
         }
 
         /* Header */
@@ -78,9 +93,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
         }
 
         .header-left {
@@ -92,37 +105,37 @@
         .logo {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--primary);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
             color: white;
-            box-shadow: var(--shadow);
         }
 
         .header-title h1 {
             font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            color: var(--text);
+            letter-spacing: -0.025em;
         }
 
         .header-title .subtitle {
             color: var(--text-secondary);
             font-size: 0.875rem;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .back-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
+            gap: 8px;
+            padding: 8px 16px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.875rem;
@@ -131,17 +144,21 @@
         }
 
         .back-btn:hover {
-            background: var(--bg-elevated);
-            color: var(--text);
             border-color: var(--primary);
+            color: var(--primary);
+            background: var(--bg-elevated);
         }
 
         /* Stats Cards */
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1100px) {
+            .stats-row { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 900px) {
@@ -150,20 +167,19 @@
 
         .stat-card {
             background: var(--bg-card);
-            border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
             transition: all 0.2s;
         }
 
         .stat-card:hover {
-            box-shadow: var(--shadow);
-            border-color: var(--border-light);
+            border-color: var(--primary);
         }
 
         .stat-card.highlight {
-            background: linear-gradient(135deg, var(--accent-glow), transparent);
-            border-color: var(--accent);
+            background: var(--primary-light);
+            border-color: var(--primary-light);
         }
 
         .stat-label {
@@ -171,33 +187,35 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
         .stat-value {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
             line-height: 1.2;
+            color: var(--text);
         }
 
-        .stat-value.gold { color: var(--accent); }
+        .stat-value.gold { color: var(--primary); } /* Remapped gold to primary */
         .stat-value.success { color: var(--success); }
         .stat-value.danger { color: var(--danger); }
 
         .stat-sub {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-weight: 500;
         }
 
         /* Card Component */
         .card {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius);
             margin-bottom: 24px;
+            border: 1px solid var(--border);
             overflow: hidden;
         }
 
@@ -205,28 +223,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
+            padding: 20px 24px;
             border-bottom: 1px solid var(--border);
-            background: var(--bg-elevated);
+            background: transparent;
         }
 
         .card-title {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .card-body {
-            padding: 20px;
+            padding: 24px;
         }
 
         /* Time Range Selector */
         .time-range-selector {
             display: flex;
             gap: 4px;
-            background: var(--bg);
+            background: var(--bg-elevated);
             border-radius: 8px;
             padding: 4px;
         }
@@ -237,7 +256,7 @@
             background: transparent;
             color: var(--text-secondary);
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s;
@@ -245,7 +264,6 @@
 
         .time-btn:hover {
             color: var(--text);
-            background: var(--bg-card);
         }
 
         .time-btn.active {
@@ -257,18 +275,19 @@
         /* Chart Container */
         .chart-container {
             position: relative;
-            height: 380px;
+            height: 400px;
+            width: 100%;
         }
 
         .chart-container.small {
-            height: 260px;
+            height: 300px;
         }
 
         /* Strategy Rules */
         .strategy-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 20px;
         }
 
         @media (max-width: 600px) {
@@ -276,80 +295,88 @@
         }
 
         .strategy-rule {
-            padding: 16px 20px;
+            padding: 20px;
             border-radius: var(--radius);
-            border: 1px solid;
+            border: 1px solid transparent;
         }
 
         .strategy-rule.buy {
             background: var(--success-bg);
-            border-color: rgba(45, 134, 89, 0.2);
+            border-color: rgba(16, 185, 129, 0.2);
         }
 
         .strategy-rule.sell {
             background: var(--danger-bg);
-            border-color: rgba(196, 92, 92, 0.2);
+            border-color: rgba(239, 68, 68, 0.2);
         }
 
         .strategy-rule h4 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .strategy-rule.buy h4 { color: var(--success); }
         .strategy-rule.sell h4 { color: var(--danger); }
 
         .strategy-rule p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         .strategy-rule strong {
             color: var(--text);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .strategy-meta {
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
             border-top: 1px solid var(--border);
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 24px;
         }
 
         .strategy-meta span {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         /* Table */
         .data-table {
             width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
         .data-table th {
-            font-size: 0.7rem;
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .data-table tbody tr {
@@ -361,62 +388,63 @@
         }
 
         .data-table tbody tr.highlight {
-            background: var(--accent-glow);
+            background: var(--primary-light);
         }
 
         .data-table .positive { color: var(--success); font-weight: 600; }
         .data-table .negative { color: var(--danger); font-weight: 600; }
 
         .note-text {
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             color: var(--text-muted);
         }
 
         /* Trade Timeline */
         .timeline {
             position: relative;
-            padding-left: 24px;
+            padding-left: 32px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 6px;
+            left: 8px;
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, var(--success), var(--danger));
+            background: var(--border);
             border-radius: 2px;
         }
 
         .trade-pair {
-            margin-bottom: 20px;
-            background: var(--bg-elevated);
+            margin-bottom: 24px;
+            background: var(--bg-card);
             border-radius: var(--radius);
-            padding: 16px;
+            padding: 20px;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
         }
 
         .trade-pair-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
             border-bottom: 1px dashed var(--border);
         }
 
         .trade-pair-num {
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-muted);
+            color: var(--text-secondary);
         }
 
         .trade-pair-profit {
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 16px;
+            padding: 4px 12px;
+            border-radius: 20px;
         }
 
         .trade-pair-profit.positive {
@@ -431,85 +459,90 @@
 
         .trade-item {
             position: relative;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            background: var(--bg-card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            padding: 16px;
+            margin-bottom: 12px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            border: none;
         }
 
         .trade-item::before {
             content: '';
             position: absolute;
-            left: -22px;
+            left: -30px;
             top: 50%;
             transform: translateY(-50%);
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            border: 2px solid var(--bg-card);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 2px var(--border);
+            z-index: 1;
         }
 
-        .trade-item.buy::before { background: var(--success); }
-        .trade-item.sell::before { background: var(--danger); }
+        .trade-item.buy::before { background: var(--success); border-color: var(--success); box-shadow: none; }
+        .trade-item.sell::before { background: var(--danger); border-color: var(--danger); box-shadow: none; }
 
         .trade-item-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .trade-action {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 3px 10px;
-            border-radius: 12px;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .trade-item.buy .trade-action {
-            background: var(--success-bg);
-            color: var(--success);
+            background: var(--success);
+            color: white;
         }
 
         .trade-item.sell .trade-action {
-            background: var(--danger-bg);
-            color: var(--danger);
+            background: var(--danger);
+            color: white;
         }
 
         .trade-date {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .trade-details {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 12px;
         }
 
         .trade-detail {
             text-align: center;
             padding: 8px;
-            background: var(--bg-elevated);
+            background: var(--bg-card);
             border-radius: 6px;
+            border: 1px solid var(--border);
         }
 
         .trade-detail-label {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
             color: var(--text-muted);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .trade-detail-value {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            color: var(--text);
         }
 
         /* Two Column Layout */
@@ -519,6 +552,154 @@
             gap: 24px;
         }
 
+        /* RSI threshold summary */
+        .rsi-thresholds {
+            margin-top: 16px;
+            padding: 12px;
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .rsi-thresholds h4 {
+            margin: 0 0 8px;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .rsi-thresholds .total {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .rsi-thresholds ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .rsi-thresholds li {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        /* RSI Analysis Box (New Timeline) */
+        .rsi-analysis-box {
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .rsi-stats-header {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .rsi-stat-item {
+            text-align: center;
+        }
+        
+        .rsi-stat-item h4 { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .rsi-stat-item .val { font-size: 1.5rem; font-weight: 700; line-height: 1; }
+        .rsi-stat-item.buy .val { color: var(--success); }
+        .rsi-stat-item.sell .val { color: var(--danger); }
+
+        .rsi-timeline {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .rsi-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .rsi-event {
+            position: relative;
+            width: 50%;
+            padding: 0 24px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        .rsi-event.left { left: 0; text-align: right; }
+        .rsi-event.right { left: 50%; text-align: left; }
+
+        .rsi-event::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            z-index: 1;
+            box-shadow: 0 0 0 3px var(--bg-elevated);
+        }
+
+        .rsi-event.left::after { right: -6px; border-color: var(--success); }
+        .rsi-event.right::after { left: -6px; border-color: var(--danger); }
+
+        .rsi-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: left;
+            position: relative;
+            transition: border-color 0.2s;
+            min-height: 36px;
+        }
+        
+        .rsi-card:hover { border-color: var(--text-muted); }
+        
+        .rsi-event.left .rsi-card { border-right: 3px solid var(--success); flex-direction: row-reverse; }
+        .rsi-event.right .rsi-card { border-left: 3px solid var(--danger); }
+
+        .rsi-date { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+        .rsi-info { font-size: 0.85rem; color: var(--text); font-weight: 600; white-space: nowrap; }
+        .rsi-duration { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; padding: 0 8px; border-left: 1px solid var(--border); }
+        .rsi-event.left .rsi-duration { border-left: none; border-right: 1px solid var(--border); }
+
+        @media (max-width: 600px) {
+            .rsi-timeline::before { left: 20px; }
+            .rsi-event { width: 100%; padding-left: 40px; padding-right: 0; text-align: left; margin-bottom: 8px; }
+            .rsi-event.left { left: 0; text-align: left; }
+            .rsi-event.right { left: 0; }
+            .rsi-event.left::after, .rsi-event.right::after { left: 14px; right: auto; }
+            .rsi-event.left .rsi-card { border-right: 1px solid var(--border); border-left: 3px solid var(--success); flex-direction: row; }
+            .rsi-event.left .rsi-duration { border-right: none; border-left: 1px solid var(--border); }
+        }
+
         @media (max-width: 800px) {
             .grid-2 { grid-template-columns: 1fr; }
         }
@@ -526,16 +707,17 @@
         /* Footer */
         .footer {
             text-align: center;
-            padding: 32px 0;
-            margin-top: 24px;
+            padding: 40px 0;
+            margin-top: 40px;
             border-top: 1px solid var(--border);
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.875rem;
         }
 
         .footer a {
             color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
         }
 
         .footer a:hover {
@@ -543,27 +725,30 @@
         }
 
         .footer-warning {
-            margin-bottom: 12px;
-            padding: 12px;
+            margin-bottom: 16px;
+            padding: 12px 24px;
             background: var(--danger-bg);
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
             color: var(--danger);
             display: inline-block;
+            font-size: 0.8rem;
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d6d3cd; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        ::selection { background: var(--primary-light); color: var(--primary-hover); }
 
         /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card, .stat-card { animation: fadeIn 0.3s ease-out; }
+        .card, .stat-card { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     </style>
 </head>
 <body>
@@ -601,6 +786,11 @@
                 <div class="stat-label">交易次数</div>
                 <div class="stat-value" id="stat-trades">--</div>
                 <div class="stat-sub" id="stat-winrate">胜率 --</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">持有时长</div>
+                <div class="stat-value" id="stat-holding">--</div>
+                <div class="stat-sub" id="stat-holding-sub">平均 -- 天 · 最长 -- 天</div>
             </div>
         </div>
 
@@ -642,6 +832,33 @@
             <div class="card-body">
                 <div class="chart-container">
                     <canvas id="returnChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- RSI Chart -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📏 RSI(15) 曲线（含 32/77 阈值）</div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container small">
+                    <canvas id="rsiChart"></canvas>
+                </div>
+                <div class="rsi-analysis-box">
+                    <div class="rsi-stats-header">
+                        <div class="rsi-stat-item buy">
+                            <h4>RSI < 32 (买入信号)</h4>
+                            <div class="val" id="rsi-below-total">-- 天</div>
+                        </div>
+                        <div class="rsi-stat-item sell">
+                            <h4>RSI > 77 (卖出信号)</h4>
+                            <div class="val" id="rsi-above-total">-- 天</div>
+                        </div>
+                    </div>
+                    <div class="rsi-timeline" id="rsi-timeline-container">
+                        <!-- JS will populate this -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -719,6 +936,7 @@
 
     <script>
         let chartInstance = null;
+        let rsiChartInstance = null;
         let drawdownChartInstance = null;
         let yearlyChartInstance = null;
         let holdingChartInstance = null;
@@ -745,6 +963,7 @@
                     btn.classList.add('active');
                     currentTimeRange = btn.dataset.range;
                     renderChart(globalData.daily_values, globalData.trades);
+                    renderRSIChart(globalData.daily_values);
                 });
             });
         }
@@ -772,6 +991,145 @@
             return filtered.map(d => ({ ...d, return: d.return - baseReturn }));
         }
 
+        function filterSeriesByRange(data, range) {
+            if (!data || data.length === 0 || range === 'all') return data;
+
+            const endDate = new Date(data[data.length - 1].date);
+            let startDate;
+
+            switch (range) {
+                case '1y': startDate = new Date(endDate); startDate.setFullYear(startDate.getFullYear() - 1); break;
+                case '3y': startDate = new Date(endDate); startDate.setFullYear(startDate.getFullYear() - 3); break;
+                case '5y': startDate = new Date(endDate); startDate.setFullYear(startDate.getFullYear() - 5); break;
+                default: return data;
+            }
+
+            const startDateStr = startDate.toISOString().split('T')[0];
+            const filtered = data.filter(d => d.date >= startDateStr);
+            return filtered.length === 0 ? data : filtered;
+        }
+
+        function computeRSI(values, period = 15) {
+            if (!values || values.length === 0) return [];
+            const rsi = new Array(values.length).fill(null);
+            let avgGain = 0;
+            let avgLoss = 0;
+
+            for (let i = 1; i < values.length; i++) {
+                const change = values[i] - values[i - 1];
+                const gain = Math.max(change, 0);
+                const loss = Math.max(-change, 0);
+
+                if (i <= period) {
+                    avgGain += gain;
+                    avgLoss += loss;
+                    if (i === period) {
+                        avgGain /= period;
+                        avgLoss /= period;
+                        const rs = avgLoss === 0 ? 100 : avgGain / avgLoss;
+                        rsi[i] = 100 - 100 / (1 + rs);
+                    }
+                } else {
+                    avgGain = ((avgGain * (period - 1)) + gain) / period;
+                    avgLoss = ((avgLoss * (period - 1)) + loss) / period;
+                    const rs = avgLoss === 0 ? 100 : avgGain / avgLoss;
+                    rsi[i] = 100 - 100 / (1 + rs);
+                }
+            }
+
+            return rsi;
+        }
+
+        function analyzeThresholds(labels, values, lowThr, highThr) {
+            const result = {
+                below: { total: 0, ranges: [] },
+                above: { total: 0, ranges: [] }
+            };
+
+            let current = null;
+
+            const flush = (endIndex) => {
+                if (!current) return;
+                const len = endIndex - current.startIdx + 1;
+                const entry = {
+                    start: labels[current.startIdx],
+                    end: labels[endIndex],
+                    days: len
+                };
+                if (current.type === 'below') {
+                    result.below.total += len;
+                    result.below.ranges.push(entry);
+                } else {
+                    result.above.total += len;
+                    result.above.ranges.push(entry);
+                }
+                current = null;
+            };
+
+            for (let i = 0; i < values.length; i++) {
+                const v = values[i];
+                if (v === null || v === undefined) {
+                    if (current) flush(i - 1);
+                    continue;
+                }
+
+                if (v < lowThr) {
+                    if (current && current.type !== 'below') flush(i - 1);
+                    if (!current) current = { type: 'below', startIdx: i };
+                } else if (v > highThr) {
+                    if (current && current.type !== 'above') flush(i - 1);
+                    if (!current) current = { type: 'above', startIdx: i };
+                } else {
+                    if (current) flush(i - 1);
+                }
+            }
+
+            if (current) flush(values.length - 1);
+
+            // Ensure chronological order by start date
+            result.below.ranges.sort((a, b) => a.start.localeCompare(b.start));
+            result.above.ranges.sort((a, b) => a.start.localeCompare(b.start));
+
+            return result;
+        }
+
+        function updateThresholdUI(thresholds) {
+            const belowTotalEl = document.getElementById('rsi-below-total');
+            const aboveTotalEl = document.getElementById('rsi-above-total');
+            const timelineContainer = document.getElementById('rsi-timeline-container');
+
+            if (belowTotalEl) belowTotalEl.textContent = `${thresholds.below.total || 0} 天`;
+            if (aboveTotalEl) aboveTotalEl.textContent = `${thresholds.above.total || 0} 天`;
+
+            if (timelineContainer) {
+                const mixed = [
+                    ...thresholds.below.ranges.map(r => ({ ...r, type: 'buy' })),
+                    ...thresholds.above.ranges.map(r => ({ ...r, type: 'sell' }))
+                ].sort((a, b) => a.start.localeCompare(b.start));
+
+                if (mixed.length === 0) {
+                    timelineContainer.innerHTML = '<div style="text-align:center; color:var(--text-muted); padding:20px;">无RSI极端区间信号</div>';
+                    return;
+                }
+
+                timelineContainer.innerHTML = mixed.map(item => {
+                    const isBuy = item.type === 'buy';
+                    const positionClass = isBuy ? 'left' : 'right';
+                    const label = isBuy ? '低位吸筹' : '高位派发';
+                    
+                    return `
+                        <div class="rsi-event ${positionClass}">
+                            <div class="rsi-card">
+                                <span class="rsi-date">${item.start} ~ ${item.end}</span>
+                                <span class="rsi-info">${label}</span>
+                                <span class="rsi-duration">${item.days}天</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
         function renderPage(data) {
             const { meta, statistics, trades, daily_values } = data;
             const stats = statistics.strategy_ideal || statistics.strategy;
@@ -787,6 +1145,7 @@
 
             renderComparisonTable(statistics);
             renderChart(daily_values, trades);
+            renderRSIChart(daily_values);
             renderDrawdownChart(daily_values);
             renderYearlyChart(daily_values, statistics);
             renderHoldingChart(trades);
@@ -796,15 +1155,24 @@
         function renderComparisonTable(statistics) {
             const tbody = document.getElementById('comparison-tbody');
             const rows = [
-                { name: 'RSI(15) 32/77 联结基金', return: statistics.strategy_ideal?.total_return, annual: statistics.strategy_ideal?.annual_return, note: 'EMA平滑+小数份额 (理论最优)', highlight: true },
+                { name: 'RSI+波动率 动态调优', return: statistics.strategy_dynamic?.total_return, annual: statistics.strategy_dynamic?.annual_return, note: '基于波动率动态调整RSI阈值 (联结基金/无整手限制)', highlight: true },
+                { name: 'RSI(15) 32/77 联结基金', return: statistics.strategy_ideal?.total_return, annual: statistics.strategy_ideal?.annual_return, note: 'EMA平滑+小数份额 (理论最优)' },
                 { name: 'RSI(14) 34/78 ETF整手', return: statistics.strategy_34_78?.total_return || statistics.strategy.total_return, annual: statistics.strategy_34_78?.annual_return || statistics.strategy.annual_return, note: 'RSI<34买入, RSI>78卖出 (实际最优)' },
-                { name: 'RSI(14) 66/81', return: statistics.strategy_66_81?.total_return, annual: statistics.strategy_66_81?.annual_return, note: 'RSI<66买入, RSI>81卖出' },
+                { name: '波动率 HV16/7', return: statistics.strategy_volatility?.total_return, annual: statistics.strategy_volatility?.annual_return, note: 'HV>16%买入(恐慌), HV<7%卖出(过热)' },
+                { name: '反向均线 MA8/72', return: statistics.strategy_ma_reverse?.total_return, annual: statistics.strategy_ma_reverse?.annual_return, note: '死叉买入(回调低吸), 金叉卖出(突破套利)' },
                 { name: '红利低波ETF 买入持有', return: statistics.buyhold.total_return, annual: statistics.buyhold.annual_return, note: '累积型ETF基准' },
                 { name: '沪深300ETF (510300)', return: statistics.hs300_return, annual: statistics.hs300_annual, note: 'A股大盘基准' },
                 { name: '黄金ETF (518880)', return: statistics.gold_return, annual: statistics.gold_annual, note: '避险资产' },
                 { name: '纳指ETF (159941)', return: statistics.nasdaq_return, annual: statistics.nasdaq_annual, note: '美股科技' },
                 { name: '标普500ETF (513500)', return: statistics.sp500_return, annual: statistics.sp500_annual, note: '美股大盘' }
             ];
+
+            // Sort by Annual Return descending
+            rows.sort((a, b) => {
+                const valA = (a.annual !== null && a.annual !== undefined) ? parseFloat(a.annual) : -9999;
+                const valB = (b.annual !== null && b.annual !== undefined) ? parseFloat(b.annual) : -9999;
+                return valB - valA;
+            });
 
             tbody.innerHTML = rows.map(row => `
                 <tr class="${row.highlight ? 'highlight' : ''}">
@@ -826,7 +1194,10 @@
             }
             
             const strategyIdeal = getFilteredValues(daily_values.strategy_ideal);
+            const strategyDynamic = getFilteredValues(daily_values.strategy_dynamic);
             const strategy = getFilteredValues(daily_values.strategy);
+            const strategyVolatility = getFilteredValues(daily_values.strategy_volatility);
+            const strategyMAReverse = getFilteredValues(daily_values.strategy_ma_reverse);
             const buyhold = getFilteredValues(daily_values.buyhold);
             const hs300 = getFilteredValues(daily_values.hs300);
             const gold = getFilteredValues(daily_values.gold);
@@ -835,19 +1206,22 @@
 
             if (chartInstance) chartInstance.destroy();
 
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = false;
             const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
             const textColor = isDark ? '#6b6560' : '#9a948c';
 
             const datasets = [
-                { label: 'RSI(15) 联结基金', data: strategyIdeal.values, borderColor: isDark ? '#e4b82d' : '#c9a227', backgroundColor: isDark ? 'rgba(228,184,45,0.1)' : 'rgba(201,162,39,0.1)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2.5 },
-                { label: 'RSI(14) ETF整手', data: strategy.values, borderColor: isDark ? '#4ead7a' : '#2d8659', tension: 0.4, pointRadius: 0, borderWidth: 1.8 },
-                { label: '买入持有', data: buyhold.values, borderColor: isDark ? '#8080a0' : '#6060a0', tension: 0.4, pointRadius: 0, borderWidth: 1.5 }
+                { label: 'RSI+波动率 动态调优', data: strategyDynamic.values, borderColor: '#a08050', backgroundColor: 'rgba(160, 128, 80, 0.1)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2.5 },
+                { label: 'RSI(15) 联结基金', data: strategyIdeal.values, borderColor: '#c9a962', tension: 0.4, pointRadius: 0, borderWidth: 2 },
+                { label: 'RSI(14) ETF整手', data: strategy.values, borderColor: '#5a8a6a', tension: 0.4, pointRadius: 0, borderWidth: 1.5 },
+                { label: '波动率 HV16/7', data: strategyVolatility.values, borderColor: '#8a8070', tension: 0.4, pointRadius: 0, borderWidth: 1.5 },
+                { label: '反向均线 MA8/72', data: strategyMAReverse.values, borderColor: '#7a7060', tension: 0.4, pointRadius: 0, borderWidth: 1.5 },
+                { label: '买入持有', data: buyhold.values, borderColor: '#a8a29e', tension: 0.4, pointRadius: 0, borderWidth: 1.2 }
             ];
 
-            if (hs300.values.length > 0) datasets.push({ label: '沪深300', data: hs300.values, borderColor: isDark ? '#c45c5c' : '#a04040', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
-            if (gold.values.length > 0) datasets.push({ label: '黄金', data: gold.values, borderColor: isDark ? '#d4a020' : '#b08010', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
-            if (nasdaq.values.length > 0) datasets.push({ label: '纳指', data: nasdaq.values, borderColor: isDark ? '#5090d0' : '#3070b0', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
+            if (hs300.values.length > 0) datasets.push({ label: '沪深300', data: hs300.values, borderColor: '#a05050', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
+            if (gold.values.length > 0) datasets.push({ label: '黄金', data: gold.values, borderColor: '#d4a020', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
+            if (nasdaq.values.length > 0) datasets.push({ label: '纳指', data: nasdaq.values, borderColor: '#5090d0', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
             if (sp500.values.length > 0) datasets.push({ label: '标普500', data: sp500.values, borderColor: isDark ? '#a070a0' : '#806080', tension: 0.4, pointRadius: 0, borderWidth: 1.2 });
 
             chartInstance = new Chart(ctx, {
@@ -879,6 +1253,74 @@
             });
         }
 
+        function renderRSIChart(daily_values) {
+            const ctx = document.getElementById('rsiChart').getContext('2d');
+            const baseSeries = daily_values.strategy_ideal || daily_values.strategy;
+            if (!baseSeries || baseSeries.length === 0) return;
+
+            const filtered = filterSeriesByRange(baseSeries, currentTimeRange);
+            const labels = filtered.map(d => d.date);
+            const closes = filtered.map(d => d.close);
+            const rsiValues = computeRSI(closes, 15).map(v => v === null ? null : Number(v.toFixed(2)));
+
+            // 价格归一化到100起点，便于与RSI同图展示
+            const priceBase = closes.length > 0 ? closes[0] : 1;
+            const priceSeries = closes.map(v => v === null || v === undefined ? null : Number(((v / priceBase) * 100).toFixed(2)));
+
+            // Analyze threshold segments
+            const thresholds = analyzeThresholds(labels, rsiValues, 32, 77);
+            updateThresholdUI(thresholds);
+
+            if (rsiChartInstance) rsiChartInstance.destroy();
+
+            const isDark = false;
+            const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+            const textColor = isDark ? '#6b6560' : '#9a948c';
+
+            const threshold32 = labels.map(() => 32);
+            const threshold77 = labels.map(() => 77);
+
+            rsiChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: '价格(归一化=100)', data: priceSeries, yAxisID: 'price', borderColor: '#d4a020', tension: 0.2, pointRadius: 0, borderWidth: 2, fill: false },
+                        { label: 'RSI(15)', data: rsiValues, borderColor: '#a08050', backgroundColor: 'rgba(160, 128, 80, 0.08)', fill: true, tension: 0.2, pointRadius: 0, borderWidth: 2 },
+                        { label: '阈值 32', data: threshold32, borderColor: '#5a8a6a', borderWidth: 1, borderDash: [6, 6], pointRadius: 0, fill: false },
+                        { label: '阈值 77', data: threshold77, borderColor: '#a05050', borderWidth: 1, borderDash: [6, 6], pointRadius: 0, fill: false }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: { position: 'top', labels: { color: textColor, usePointStyle: true, padding: 12, font: { size: 11, weight: '500' } } },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(26,26,28,0.95)' : 'rgba(255,255,255,0.95)',
+                            titleColor: isDark ? '#f0ede8' : '#1f1d1a',
+                            bodyColor: isDark ? '#9a948c' : '#6b6560',
+                            borderColor: isDark ? '#2a2928' : '#e8e4df',
+                            borderWidth: 1, padding: 12,
+                            callbacks: {
+                                label: ctx => {
+                                    const val = ctx.parsed.y;
+                                    if (ctx.dataset.yAxisID === 'price') return `${ctx.dataset.label}: ${val.toFixed(2)}`;
+                                    return `${ctx.dataset.label}: ${val.toFixed(2)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { type: 'category', grid: { color: gridColor, drawTicks: false }, ticks: { color: textColor, maxTicksLimit: 8, maxRotation: 0, autoSkip: true, font: { size: 10 }, padding: 8 } },
+                        y: { min: 0, max: 100, grid: { color: gridColor, drawTicks: false }, ticks: { color: textColor, font: { size: 10 }, callback: v => v + '', padding: 8 } },
+                        price: { position: 'right', grid: { display: false }, ticks: { color: isDark ? '#fbbf24' : '#d97706', font: { size: 10 }, callback: v => v.toFixed(0), padding: 8 } }
+                    }
+                }
+            });
+        }
+
         function renderDrawdownChart(daily_values) {
             const ctx = document.getElementById('drawdownChart').getContext('2d');
             const labels = daily_values.strategy.map(d => d.date);
@@ -895,7 +1337,7 @@
             
             if (drawdownChartInstance) drawdownChartInstance.destroy();
 
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = false;
             const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
             const textColor = isDark ? '#6b6560' : '#9a948c';
 
@@ -904,9 +1346,9 @@
                 data: {
                     labels,
                     datasets: [
-                        { label: '联结基金回撤', data: calcDrawdown(daily_values.strategy_ideal), borderColor: isDark ? '#e4b82d' : '#c9a227', backgroundColor: isDark ? 'rgba(228,184,45,0.1)' : 'rgba(201,162,39,0.08)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2 },
-                        { label: 'ETF整手回撤', data: calcDrawdown(daily_values.strategy), borderColor: isDark ? '#4ead7a' : '#2d8659', tension: 0.4, pointRadius: 0, borderWidth: 1.5 },
-                        { label: '买入持有回撤', data: calcDrawdown(daily_values.buyhold), borderColor: isDark ? '#8080a0' : '#6060a0', tension: 0.4, pointRadius: 0, borderWidth: 1.2 }
+                        { label: '联结基金回撤', data: calcDrawdown(daily_values.strategy_ideal), borderColor: '#a08050', backgroundColor: 'rgba(160, 128, 80, 0.1)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2 },
+                        { label: 'ETF整手回撤', data: calcDrawdown(daily_values.strategy), borderColor: '#5a8a6a', tension: 0.4, pointRadius: 0, borderWidth: 1.5 },
+                        { label: '买入持有回撤', data: calcDrawdown(daily_values.buyhold), borderColor: '#a8a29e', tension: 0.4, pointRadius: 0, borderWidth: 1.2 }
                     ]
                 },
                 options: {
@@ -951,7 +1393,7 @@
             
             if (yearlyChartInstance) yearlyChartInstance.destroy();
 
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = false;
             const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
             const textColor = isDark ? '#6b6560' : '#9a948c';
 
@@ -960,8 +1402,8 @@
                 data: {
                     labels: years,
                     datasets: [
-                        { label: '联结基金', data: years.map(y => strategyYearly[y] || 0), backgroundColor: years.map(y => (strategyYearly[y] || 0) >= 0 ? (isDark ? 'rgba(228,184,45,0.8)' : 'rgba(201,162,39,0.8)') : (isDark ? 'rgba(224,112,112,0.8)' : 'rgba(196,92,92,0.8)')), borderRadius: 4 },
-                        { label: '买入持有', data: years.map(y => buyholdYearly[y] || 0), backgroundColor: years.map(y => (buyholdYearly[y] || 0) >= 0 ? (isDark ? 'rgba(128,128,160,0.6)' : 'rgba(96,96,160,0.6)') : (isDark ? 'rgba(224,112,112,0.6)' : 'rgba(196,92,92,0.6)')), borderRadius: 4 }
+                        { label: '联结基金', data: years.map(y => strategyYearly[y] || 0), backgroundColor: years.map(y => (strategyYearly[y] || 0) >= 0 ? 'rgba(160, 128, 80, 0.8)' : 'rgba(160, 80, 80, 0.8)'), borderRadius: 4 },
+                        { label: '买入持有', data: years.map(y => buyholdYearly[y] || 0), backgroundColor: years.map(y => (buyholdYearly[y] || 0) >= 0 ? 'rgba(138, 128, 112, 0.6)' : 'rgba(160, 80, 80, 0.6)'), borderRadius: 4 }
                     ]
                 },
                 options: {
@@ -993,16 +1435,24 @@
             
             const totalDays = holdingDays.reduce((a, b) => a + b, 0);
             const avgDays = holdingDays.length > 0 ? Math.round(totalDays / holdingDays.length) : 0;
+            const maxDays = holdingDays.length > 0 ? Math.max(...holdingDays) : 0;
+
+            const holdingStat = document.getElementById('stat-holding');
+            const holdingSub = document.getElementById('stat-holding-sub');
+            if (holdingStat && holdingSub) {
+                holdingStat.textContent = holdingDays.length > 0 ? `${avgDays} 天` : '--';
+                holdingSub.textContent = holdingDays.length > 0 ? `平均 ${avgDays} 天 · 最长 ${maxDays} 天` : '平均 -- 天 · 最长 -- 天';
+            }
             
             if (holdingChartInstance) holdingChartInstance.destroy();
 
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isDark = false;
             const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
             const textColor = isDark ? '#6b6560' : '#9a948c';
 
             holdingChartInstance = new Chart(ctx, {
                 type: 'bar',
-                data: { labels: holdingLabels, datasets: [{ label: '持仓天数', data: holdingDays, backgroundColor: holdingLabels.map(l => l.includes('持仓中') ? (isDark ? 'rgba(228,184,45,0.9)' : 'rgba(201,162,39,0.9)') : (isDark ? 'rgba(201,160,82,0.7)' : 'rgba(154,123,79,0.7)')), borderRadius: 4 }] },
+                data: { labels: holdingLabels, datasets: [{ label: '持仓天数', data: holdingDays, backgroundColor: holdingLabels.map(l => l.includes('持仓中') ? 'rgba(160, 128, 80, 0.9)' : 'rgba(160, 128, 80, 0.7)'), borderRadius: 4 }] },
                 options: {
                     responsive: true, maintainAspectRatio: false, indexAxis: 'y',
                     plugins: { legend: { display: false }, title: { display: true, text: `平均持仓: ${avgDays} 天 | 总持仓: ${totalDays} 天`, color: textColor, font: { size: 11, weight: '500' }, padding: { bottom: 12 } }, tooltip: { backgroundColor: isDark ? 'rgba(26,26,28,0.95)' : 'rgba(255,255,255,0.95)', titleColor: isDark ? '#f0ede8' : '#1f1d1a', bodyColor: isDark ? '#9a948c' : '#6b6560', borderColor: isDark ? '#2a2928' : '#e8e4df', borderWidth: 1, padding: 12, callbacks: { label: ctx => `持仓 ${ctx.parsed.x} 天` } } },
@@ -1052,7 +1502,7 @@
                                 <div class="trade-detail"><div class="trade-detail-label">RSI</div><div class="trade-detail-value">${pair.sell.rsi ? pair.sell.rsi.toFixed(1) : '--'}</div></div>
                             </div>
                         </div>
-                        ` : `<div class="trade-item buy" style="border-style: dashed; opacity: 0.7;"><div class="trade-item-header"><span class="trade-action">⏳ 持仓中</span><span class="trade-date">等待卖出信号...</span></div></div>`}
+                        ` : `<div class="trade-item" style="background: var(--primary-light); border: 1px dashed var(--primary);"><div class="trade-item-header"><span class="trade-action" style="background: var(--primary);">⏳ 持仓中</span><span class="trade-date" style="color: var(--primary);">等待卖出信号...</span></div></div>`}
                         <div class="trade-item buy">
                             <div class="trade-item-header">
                                 <span class="trade-action">买入</span>
@@ -1071,7 +1521,7 @@
         }
 
         loadData();
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => loadData());
+        // Dark mode is now default
     </script>
 </body>
 </html>

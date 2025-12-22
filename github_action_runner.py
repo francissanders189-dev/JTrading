@@ -185,7 +185,8 @@ def send_email(to_email, subject, content):
     """
 
     message = MIMEText(html_content, 'html', 'utf-8')
-    message['From'] = Header("RSI 监控助手", 'utf-8')
+    # RFC5322 要求 From 必须包含可解析的邮箱地址；使用“显示名 <邮箱>”格式
+    message['From'] = Header(f"RSI 监控助手 <{SENDER_EMAIL}>", 'utf-8')
     message['To'] = Header(to_email, 'utf-8')
     message['Subject'] = Header(subject, 'utf-8')
 

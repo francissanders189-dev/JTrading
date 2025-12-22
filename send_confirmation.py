@@ -19,6 +19,10 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", 465))
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD")
 
+# 订阅提示文案所使用的阈值（优先取环境变量，可与实时监控保持一致）
+BUY_THRESHOLD = int(os.environ.get("CONFIRM_BUY_THRESHOLD", os.environ.get("RSI_BUY_THRESHOLD", 32)))
+SELL_THRESHOLD = int(os.environ.get("CONFIRM_SELL_THRESHOLD", os.environ.get("RSI_SELL_THRESHOLD", 77)))
+
 GIST_TOKEN = os.environ.get("GIST_TOKEN")
 GIST_ID = os.environ.get("GIST_ID")
 GIST_FILENAME = os.environ.get("GIST_FILENAME", "subscribers.txt")
@@ -101,11 +105,11 @@ def send_confirmation_email(to_email):
   <div class="content">
     <p>您好！</p>
     <p>感谢您订阅 <strong>JTrading RSI 监控</strong> 服务！</p>
-    <p>从现在起，当 <strong>红利低波ETF (512890)</strong> 的 RSI 指标触发以下条件时，您将收到邮件通知：</p>
-    <ul>
-      <li>🟢 <strong>买入信号</strong>：RSI &lt; 40（超卖区域）</li>
-      <li>🔴 <strong>卖出信号</strong>：RSI &gt; 70（超买区域）</li>
-    </ul>
+        <p>从现在起，当 <strong>红利低波ETF (512890)</strong> 的 RSI 指标触发以下条件时，您将收到邮件通知：</p>
+        <ul>
+            <li>🟢 <strong>买入信号</strong>：RSI &lt; {BUY_THRESHOLD}</li>
+            <li>🔴 <strong>卖出信号</strong>：RSI &gt; {SELL_THRESHOLD}</li>
+        </ul>
     <p style="text-align: center;">
       <a href="https://pear56.github.io/JTrading/" class="btn">查看实时监控面板</a>
     </p>

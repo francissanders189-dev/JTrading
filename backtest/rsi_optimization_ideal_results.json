@@ -2,124 +2,76 @@
   "meta": {
     "mode": "理想化（小数份额+EMA）",
     "start_date": "2019-01-18",
-    "end_date": "2025-11-28",
-    "trading_days": 1663,
-    "calendar_days": 2506,
-    "buyhold_return": 139.84,
-    "buyhold_annual": 13.59,
+    "end_date": "2025-12-12",
+    "trading_days": 1673,
+    "calendar_days": 2520,
+    "buyhold_return": 133.86,
+    "buyhold_annual": 13.09,
     "total_combinations": 28050,
-    "beating_buyhold_count": 4233,
-    "generated_at": "2025-11-29 11:37:59"
+    "beating_buyhold_count": 4406,
+    "generated_at": "2025-12-12 22:08:10"
   },
   "best_params": {
     "rsi_period": 15,
     "buy_threshold": 32,
     "sell_threshold": 77,
-    "total_return": 268.02,
+    "total_return": 258.85,
     "max_drawdown": 13.11,
     "trade_count": 7,
     "win_rate": 100.0,
     "final_position": "持仓中",
-    "final_value": 368016.47,
-    "sharpe_like": 20.443935926773456
+    "final_value": 358846.62,
+    "sharpe_like": 19.744469870327997
   },
-  "best_annual": 20.9,
+  "best_annual": 20.33,
   "top_20": [
     {
       "rsi_period": 15,
       "buy_threshold": 32,
       "sell_threshold": 77,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
     {
       "rsi_period": 16,
       "buy_threshold": 33,
       "sell_threshold": 76,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
     {
       "rsi_period": 17,
       "buy_threshold": 34,
       "sell_threshold": 75,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
     {
       "rsi_period": 21,
       "buy_threshold": 39,
       "sell_threshold": 72,
-      "total_return": 259.24,
+      "total_return": 250.29,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 359240.05,
-      "sharpe_like": 19.774218154080856
-    },
-    {
-      "rsi_period": 24,
-      "buy_threshold": 41,
-      "sell_threshold": 69,
-      "total_return": 256.11,
-      "max_drawdown": 13.11,
-      "trade_count": 9,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 356113.64,
-      "sharpe_like": 19.53546910755149
-    },
-    {
-      "rsi_period": 16,
-      "buy_threshold": 34,
-      "sell_threshold": 76,
-      "total_return": 253.0,
-      "max_drawdown": 13.11,
-      "trade_count": 7,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 353002.36,
-      "sharpe_like": 19.29824561403509
-    },
-    {
-      "rsi_period": 17,
-      "buy_threshold": 35,
-      "sell_threshold": 75,
-      "total_return": 253.0,
-      "max_drawdown": 13.11,
-      "trade_count": 7,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 353002.36,
-      "sharpe_like": 19.29824561403509
-    },
-    {
-      "rsi_period": 14,
-      "buy_threshold": 31,
-      "sell_threshold": 78,
-      "total_return": 252.08,
-      "max_drawdown": 13.11,
-      "trade_count": 7,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 352083.9,
-      "sharpe_like": 19.2280701754386
+      "final_value": 350288.88,
+      "sharpe_like": 19.091533180778033
     },
     {
       "rsi_period": 20,
@@ -134,136 +86,184 @@
       "sharpe_like": 19.085430968726165
     },
     {
-      "rsi_period": 15,
-      "buy_threshold": 32,
+      "rsi_period": 11,
+      "buy_threshold": 29,
+      "sell_threshold": 77,
+      "total_return": 248.07,
+      "max_drawdown": 13.11,
+      "trade_count": 11,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 348070.99,
+      "sharpe_like": 18.922196796338675
+    },
+    {
+      "rsi_period": 24,
+      "buy_threshold": 41,
+      "sell_threshold": 69,
+      "total_return": 247.24,
+      "max_drawdown": 13.11,
+      "trade_count": 9,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 347240.38,
+      "sharpe_like": 18.858886346300537
+    },
+    {
+      "rsi_period": 16,
+      "buy_threshold": 34,
       "sell_threshold": 76,
-      "total_return": 249.5,
+      "total_return": 244.21,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 349498.27,
-      "sharpe_like": 19.031273836765827
+      "final_value": 344206.62,
+      "sharpe_like": 18.627765064836005
+    },
+    {
+      "rsi_period": 17,
+      "buy_threshold": 35,
+      "sell_threshold": 75,
+      "total_return": 244.21,
+      "max_drawdown": 13.11,
+      "trade_count": 7,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 344206.62,
+      "sharpe_like": 18.627765064836005
+    },
+    {
+      "rsi_period": 14,
+      "buy_threshold": 31,
+      "sell_threshold": 78,
+      "total_return": 243.31,
+      "max_drawdown": 13.11,
+      "trade_count": 7,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 343311.05,
+      "sharpe_like": 18.55911517925248
+    },
+    {
+      "rsi_period": 15,
+      "buy_threshold": 32,
+      "sell_threshold": 76,
+      "total_return": 240.79,
+      "max_drawdown": 13.11,
+      "trade_count": 7,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 340789.85,
+      "sharpe_like": 18.36689549961861
     },
     {
       "rsi_period": 16,
       "buy_threshold": 33,
       "sell_threshold": 75,
-      "total_return": 249.5,
+      "total_return": 240.79,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 349498.27,
-      "sharpe_like": 19.031273836765827
+      "final_value": 340789.85,
+      "sharpe_like": 18.36689549961861
     },
     {
       "rsi_period": 17,
       "buy_threshold": 34,
       "sell_threshold": 74,
-      "total_return": 249.5,
+      "total_return": 240.79,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 349498.27,
-      "sharpe_like": 19.031273836765827
+      "final_value": 340789.85,
+      "sharpe_like": 18.36689549961861
     },
     {
       "rsi_period": 21,
       "buy_threshold": 38,
       "sell_threshold": 72,
-      "total_return": 248.92,
+      "total_return": 240.23,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 348922.32,
-      "sharpe_like": 18.98703279938978
-    },
-    {
-      "rsi_period": 11,
-      "buy_threshold": 29,
-      "sell_threshold": 77,
-      "total_return": 248.66,
-      "max_drawdown": 13.11,
-      "trade_count": 11,
-      "win_rate": 100.0,
-      "final_position": "空仓",
-      "final_value": 348663.95,
-      "sharpe_like": 18.967200610221205
+      "final_value": 340228.24,
+      "sharpe_like": 18.32418001525553
     },
     {
       "rsi_period": 15,
       "buy_threshold": 33,
       "sell_threshold": 77,
-      "total_return": 248.5,
+      "total_return": 239.82,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 348501.42,
-      "sharpe_like": 18.95499618611747
+      "final_value": 339817.83,
+      "sharpe_like": 18.2929061784897
+    },
+    {
+      "rsi_period": 23,
+      "buy_threshold": 40,
+      "sell_threshold": 65,
+      "total_return": 238.28,
+      "max_drawdown": 13.11,
+      "trade_count": 11,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 338278.4,
+      "sharpe_like": 18.17543859649123
     },
     {
       "rsi_period": 14,
       "buy_threshold": 31,
       "sell_threshold": 77,
-      "total_return": 246.91,
+      "total_return": 238.26,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 346906.2,
-      "sharpe_like": 18.833714721586574
+      "final_value": 338262.36,
+      "sharpe_like": 18.17391304347826
+    },
+    {
+      "rsi_period": 21,
+      "buy_threshold": 39,
+      "sell_threshold": 69,
+      "total_return": 237.13,
+      "max_drawdown": 13.11,
+      "trade_count": 10,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 337128.75,
+      "sharpe_like": 18.087719298245613
+    },
+    {
+      "rsi_period": 11,
+      "buy_threshold": 29,
+      "sell_threshold": 80,
+      "total_return": 236.54,
+      "max_drawdown": 13.11,
+      "trade_count": 8,
+      "win_rate": 100.0,
+      "final_position": "持仓中",
+      "final_value": 336540.45,
+      "sharpe_like": 18.042715484363082
     },
     {
       "rsi_period": 20,
       "buy_threshold": 38,
       "sell_threshold": 72,
-      "total_return": 244.99,
+      "total_return": 236.39,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 344990.52,
-      "sharpe_like": 18.687261632341727
-    },
-    {
-      "rsi_period": 18,
-      "buy_threshold": 35,
-      "sell_threshold": 73,
-      "total_return": 244.1,
-      "max_drawdown": 13.11,
-      "trade_count": 7,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 344102.92,
-      "sharpe_like": 18.619374523264685
-    },
-    {
-      "rsi_period": 18,
-      "buy_threshold": 35,
-      "sell_threshold": 74,
-      "total_return": 244.1,
-      "max_drawdown": 13.11,
-      "trade_count": 7,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 344102.92,
-      "sharpe_like": 18.619374523264685
-    },
-    {
-      "rsi_period": 19,
-      "buy_threshold": 36,
-      "sell_threshold": 73,
-      "total_return": 244.1,
-      "max_drawdown": 13.11,
-      "trade_count": 7,
-      "win_rate": 100.0,
-      "final_position": "持仓中",
-      "final_value": 344102.92,
-      "sharpe_like": 18.619374523264685
+      "final_value": 336394.41,
+      "sharpe_like": 18.031273836765827
     }
   ],
   "top_by_period": {
@@ -271,205 +271,205 @@
       "rsi_period": 3,
       "buy_threshold": 43,
       "sell_threshold": 80,
-      "total_return": 137.53,
+      "total_return": 131.61,
       "max_drawdown": 14.75,
       "trade_count": 87,
       "win_rate": 71.26,
       "final_position": "持仓中",
-      "final_value": 237526.18,
-      "sharpe_like": 9.32406779661017
+      "final_value": 231607.76,
+      "sharpe_like": 8.92271186440678
     },
     "4": {
       "rsi_period": 4,
       "buy_threshold": 47,
       "sell_threshold": 88,
-      "total_return": 140.39,
+      "total_return": 134.4,
       "max_drawdown": 15.52,
       "trade_count": 34,
       "win_rate": 70.59,
       "final_position": "持仓中",
-      "final_value": 240387.69,
-      "sharpe_like": 9.045747422680412
+      "final_value": 234397.97,
+      "sharpe_like": 8.659793814432991
     },
     "5": {
       "rsi_period": 5,
       "buy_threshold": 18,
       "sell_threshold": 89,
-      "total_return": 189.13,
+      "total_return": 187.42,
       "max_drawdown": 13.11,
       "trade_count": 14,
       "win_rate": 92.86,
-      "final_position": "空仓",
-      "final_value": 289131.63,
-      "sharpe_like": 14.426392067124333
+      "final_position": "持仓中",
+      "final_value": 287417.89,
+      "sharpe_like": 14.295957284515637
     },
     "6": {
       "rsi_period": 6,
       "buy_threshold": 21,
       "sell_threshold": 86,
-      "total_return": 221.16,
+      "total_return": 219.25,
       "max_drawdown": 13.11,
       "trade_count": 14,
       "win_rate": 92.86,
-      "final_position": "空仓",
-      "final_value": 321158.45,
-      "sharpe_like": 16.869565217391305
+      "final_position": "持仓中",
+      "final_value": 319254.89,
+      "sharpe_like": 16.723874904652938
     },
     "7": {
       "rsi_period": 7,
       "buy_threshold": 25,
       "sell_threshold": 85,
-      "total_return": 204.43,
+      "total_return": 202.62,
       "max_drawdown": 13.11,
       "trade_count": 12,
       "win_rate": 100.0,
-      "final_position": "空仓",
-      "final_value": 304428.63,
-      "sharpe_like": 15.593440122044242
+      "final_position": "持仓中",
+      "final_value": 302624.23,
+      "sharpe_like": 15.45537757437071
     },
     "8": {
       "rsi_period": 8,
       "buy_threshold": 27,
       "sell_threshold": 83,
-      "total_return": 228.24,
+      "total_return": 226.3,
       "max_drawdown": 13.11,
       "trade_count": 12,
       "win_rate": 100.0,
-      "final_position": "空仓",
-      "final_value": 328242.18,
-      "sharpe_like": 17.409610983981693
+      "final_position": "持仓中",
+      "final_value": 326296.63,
+      "sharpe_like": 17.261632341723878
     },
     "9": {
       "rsi_period": 9,
       "buy_threshold": 25,
-      "sell_threshold": 84,
-      "total_return": 235.19,
+      "sell_threshold": 83,
+      "total_return": 228.36,
       "max_drawdown": 13.11,
-      "trade_count": 7,
+      "trade_count": 8,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 335188.61,
-      "sharpe_like": 17.939740655987798
+      "final_value": 328364.26,
+      "sharpe_like": 17.418764302059497
     },
     "10": {
       "rsi_period": 10,
       "buy_threshold": 27,
-      "sell_threshold": 83,
-      "total_return": 235.19,
+      "sell_threshold": 81,
+      "total_return": 234.43,
       "max_drawdown": 13.11,
-      "trade_count": 7,
+      "trade_count": 8,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 335188.61,
-      "sharpe_like": 17.939740655987798
+      "final_value": 334428.82,
+      "sharpe_like": 17.881769641495044
     },
     "11": {
       "rsi_period": 11,
       "buy_threshold": 29,
       "sell_threshold": 77,
-      "total_return": 248.66,
+      "total_return": 248.07,
       "max_drawdown": 13.11,
       "trade_count": 11,
       "win_rate": 100.0,
-      "final_position": "空仓",
-      "final_value": 348663.95,
-      "sharpe_like": 18.967200610221205
+      "final_position": "持仓中",
+      "final_value": 348070.99,
+      "sharpe_like": 18.922196796338675
     },
     "12": {
       "rsi_period": 12,
-      "buy_threshold": 28,
-      "sell_threshold": 80,
-      "total_return": 224.73,
+      "buy_threshold": 31,
+      "sell_threshold": 76,
+      "total_return": 223.08,
       "max_drawdown": 13.11,
-      "trade_count": 7,
+      "trade_count": 11,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 324732.76,
-      "sharpe_like": 17.14187643020595
+      "final_value": 323075.6,
+      "sharpe_like": 17.01601830663616
     },
     "13": {
       "rsi_period": 13,
       "buy_threshold": 30,
       "sell_threshold": 79,
-      "total_return": 243.02,
+      "total_return": 234.47,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 343015.07,
-      "sharpe_like": 18.536994660564456
+      "final_value": 334468.19,
+      "sharpe_like": 17.884820747520976
     },
     "14": {
       "rsi_period": 14,
       "buy_threshold": 31,
       "sell_threshold": 78,
-      "total_return": 252.08,
+      "total_return": 243.31,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 352083.9,
-      "sharpe_like": 19.2280701754386
+      "final_value": 343311.05,
+      "sharpe_like": 18.55911517925248
     },
     "15": {
       "rsi_period": 15,
       "buy_threshold": 32,
       "sell_threshold": 77,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
     "16": {
       "rsi_period": 16,
       "buy_threshold": 33,
       "sell_threshold": 76,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
     "17": {
       "rsi_period": 17,
       "buy_threshold": 34,
       "sell_threshold": 75,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
     "18": {
       "rsi_period": 18,
       "buy_threshold": 35,
       "sell_threshold": 73,
-      "total_return": 244.1,
+      "total_return": 235.53,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 344102.92,
-      "sharpe_like": 18.619374523264685
+      "final_value": 335528.92,
+      "sharpe_like": 17.965675057208237
     },
     "19": {
       "rsi_period": 19,
       "buy_threshold": 36,
       "sell_threshold": 73,
-      "total_return": 244.1,
+      "total_return": 235.53,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 344102.92,
-      "sharpe_like": 18.619374523264685
+      "final_value": 335528.92,
+      "sharpe_like": 17.965675057208237
     },
     "20": {
       "rsi_period": 20,
@@ -487,49 +487,49 @@
       "rsi_period": 21,
       "buy_threshold": 39,
       "sell_threshold": 72,
-      "total_return": 259.24,
+      "total_return": 250.29,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 359240.05,
-      "sharpe_like": 19.774218154080856
+      "final_value": 350288.88,
+      "sharpe_like": 19.091533180778033
     },
     "22": {
       "rsi_period": 22,
       "buy_threshold": 38,
       "sell_threshold": 70,
-      "total_return": 240.31,
+      "total_return": 231.83,
       "max_drawdown": 13.11,
       "trade_count": 8,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 340305.4,
-      "sharpe_like": 18.3302822273074
+      "final_value": 331826.03,
+      "sharpe_like": 17.683447749809307
     },
     "23": {
       "rsi_period": 23,
       "buy_threshold": 40,
-      "sell_threshold": 72,
-      "total_return": 243.17,
-      "max_drawdown": 13.65,
-      "trade_count": 6,
+      "sell_threshold": 65,
+      "total_return": 238.28,
+      "max_drawdown": 13.11,
+      "trade_count": 11,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 343168.67,
-      "sharpe_like": 17.81465201465201
+      "final_value": 338278.4,
+      "sharpe_like": 18.17543859649123
     },
     "24": {
       "rsi_period": 24,
       "buy_threshold": 41,
       "sell_threshold": 69,
-      "total_return": 256.11,
+      "total_return": 247.24,
       "max_drawdown": 13.11,
       "trade_count": 9,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 356113.64,
-      "sharpe_like": 19.53546910755149
+      "final_value": 347240.38,
+      "sharpe_like": 18.858886346300537
     }
   },
   "comparison_with_lot_trading": {
@@ -548,14 +548,14 @@
       "rsi_period": 15,
       "buy_threshold": 32,
       "sell_threshold": 77,
-      "total_return": 268.02,
+      "total_return": 258.85,
       "max_drawdown": 13.11,
       "trade_count": 7,
       "win_rate": 100.0,
       "final_position": "持仓中",
-      "final_value": 368016.47,
-      "sharpe_like": 20.443935926773456
+      "final_value": 358846.62,
+      "sharpe_like": 19.744469870327997
     },
-    "difference": 15.07
+    "difference": 5.9
   }
 }
